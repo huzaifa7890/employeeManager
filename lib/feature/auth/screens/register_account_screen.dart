@@ -1,11 +1,12 @@
 import 'package:employeemanager/constant/extension_constants.dart';
+import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/constant/ui_constant.dart';
 import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
-import 'package:employeemanager/feature/auth/screens/register_profile_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterAccountScreen extends ConsumerStatefulWidget {
   const RegisterAccountScreen({super.key});
@@ -67,7 +68,7 @@ class _RegisterAccountScreenState extends ConsumerState<RegisterAccountScreen> {
                 padding: const EdgeInsets.only(top: 24),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
@@ -103,6 +104,14 @@ class _RegisterAccountScreenState extends ConsumerState<RegisterAccountScreen> {
                       Radius.circular(25),
                     ),
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please Enter Valid Emails";
+                    } else if (!value.isValidEmail()) {
+                      return "Please Enter Valid Emails";
+                    }
+                    return null;
+                  },
                   hintText: 'Email',
                   hintStyle: theme.textTheme.bodyMedium!
                       .copyWith(color: AppColors.fieldTextcolor),
@@ -120,6 +129,12 @@ class _RegisterAccountScreenState extends ConsumerState<RegisterAccountScreen> {
                       Radius.circular(25),
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Valid Password";
+                    }
+                    return null;
+                  },
                   hintText: 'Password',
                   hintStyle: theme.textTheme.bodyMedium!
                       .copyWith(color: AppColors.fieldTextcolor),
@@ -173,10 +188,8 @@ class _RegisterAccountScreenState extends ConsumerState<RegisterAccountScreen> {
                       if (response.errorMessage.isNotEmpty) {
                         return context.showSnackBar(response.errorMessage);
                       } else {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const RegisterProfileAccountScreen();
-                        }));
+                        context
+                            .pushReplacement(AppRoutes.registerProfileScreen);
                       }
                     });
                   }

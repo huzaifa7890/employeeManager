@@ -3,12 +3,14 @@ import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/constant/ui_constant.dart';
 import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/auth/screens/register_account_screen.dart';
-import 'package:employeemanager/feature/home/home_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/widgets/app_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+final showPasswordProvider = StateProvider<bool>((ref) => true);
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -24,6 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final showPassword = ref.watch(showPasswordProvider);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -61,16 +64,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Radius.circular(25),
                   ),
                 ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please Enter Valid Emails";
+                  } else if (!value.isValidEmail()) {
+                    return "Please Enter Valid Emails";
+                  }
+                  return null;
+                },
                 fillColor: AppColors.fieldGrey,
               ),
               const SizedBox(
                 height: 30,
               ),
               AppTextField(
-                  obscureText: true,
                   textController: passwordController,
-                  // obscureText: showPassword,
-                  validator: (value) {},
+                  obscureText: showPassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Valid Password";
+                    }
+                    return null;
+                  },
                   fillColor: AppColors.fieldGrey,
                   border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -93,21 +108,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     onPressed: () {
                       // context.push(AppRoutes.forgotPasswordScreen);
                     },
-                    child: const Text(
+                    child: Text(
                       'Forgot password?',
-                      // style: theme.textTheme.bodyMedium!
-                      //     .copyWith(color: AppColors.appThemeColor),
+                      style: theme.textTheme.bodyMedium!
+                          .copyWith(color: AppColors.appThemeColor),
                     ),
                   ),
                   TextButton(
                     onPressed: () {
-                      // ref.read(showPasswordProvider.notifier).state =
-                      //     !showPassword;
+                      ref.read(showPasswordProvider.notifier).state =
+                          !showPassword;
                     },
-                    child: const Text(
+                    child: Text(
                       'Show password',
-                      // style: theme.textTheme.bodyMedium
-                      //     ?.copyWith(color: AppColors.textColor),
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: AppColors.appThemeColor),
                     ),
                   ),
                 ],
@@ -129,11 +144,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       if (response.errorMessage.isNotEmpty) {
                         return context.showSnackBar(response.errorMessage);
                       } else {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: ((context) {
-                            return const HomeScreen();
-                          }),
-                        ));
+                        context.pushReplacement(AppRoutes.homeScreen);
                       }
                     });
                   }

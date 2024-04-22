@@ -2,7 +2,6 @@ import 'package:employeemanager/constant/navigation_service.dart';
 import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/auth/screens/login_screen.dart';
 import 'package:employeemanager/feature/home/home_screen.dart';
-import 'package:employeemanager/feature/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +10,7 @@ class AppRouter {
   AppRouter() {
     router = GoRouter(
       navigatorKey: NavigationService.navigatorKey,
-      initialLocation: AppRoutes.splashScreen,
+      initialLocation: AppRoutes.mainScreen,
       routes: [
         GoRoute(
           path: AppRoutes.mainScreen,
@@ -22,12 +21,12 @@ class AppRouter {
           },
         ),
         GoRoute(
-          path: AppRoutes.splashScreen,
-          builder: ((context, state) => const SplashScreen()),
-        ),
-        GoRoute(
           path: AppRoutes.loginScreen,
           builder: ((context, state) => const LoginScreen()),
+        ),
+        GoRoute(
+          path: AppRoutes.homeScreen,
+          builder: ((context, state) => const HomeScreen()),
         ),
       ],
     );
