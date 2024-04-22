@@ -180,7 +180,13 @@ class AuthNotifier extends Notifier<AuthState> {
     }
     if (selectimage == null) {
       setEmployeeUser(
+        name: name,
+        phoneNo: phoneNo,
+        currentAddress: currentAddress,
         email: email,
+        createdAt: DateTime.now(),
+        profilePic: firebaseresponse.data,
+        id: userId,
       );
     }
 

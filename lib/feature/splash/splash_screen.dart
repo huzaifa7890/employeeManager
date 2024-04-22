@@ -8,6 +8,7 @@ import 'package:employeemanager/theme/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -55,17 +56,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         }
 
         if (invesNetworkUser != null) {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: ((context) {
-              return const HomeScreen();
-            }),
-          ));
+          context.pushReplacement(AppRoutes.mainScreen);
         } else {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: ((context) {
-              return const LoginScreen();
-            }),
-          ));
+          Future.delayed(const Duration(milliseconds: 2000), () {
+            context.pushReplacement(AppRoutes.mainScreen);
+          });
         }
       },
     );

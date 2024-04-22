@@ -416,7 +416,7 @@ class _RegisterProfileAccountScreenState
                 height: 25,
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   // if (_formKey.currentState!.validate()) {
                   final userId = ref.read(authProvider).user?.uid;
                   if (_formKey.currentState!.validate()) {
@@ -435,12 +435,11 @@ class _RegisterProfileAccountScreenState
                           phoneNo: phoneController.text,
                           createdAt: DateTime.now(),
                         );
-
+                    await ref.read(authProvider.notifier).saveEmployeeUser();
                     response.then((response) {
                       if (response.errorMessage.isNotEmpty) {
                         return context.showSnackBar(response.errorMessage);
                       } else {
-                        ref.read(authProvider.notifier).saveEmployeeUser();
                         context.pushReplacement(AppRoutes.homeScreen);
                       }
                     });

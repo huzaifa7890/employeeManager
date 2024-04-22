@@ -4,6 +4,7 @@ import 'package:employeemanager/feature/auth/screens/login_screen.dart';
 import 'package:employeemanager/feature/auth/screens/register_account_screen.dart';
 import 'package:employeemanager/feature/auth/screens/register_profile_screen.dart';
 import 'package:employeemanager/feature/home/home_screen.dart';
+import 'package:employeemanager/feature/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,7 +13,7 @@ class AppRouter {
   AppRouter() {
     router = GoRouter(
       navigatorKey: NavigationService.navigatorKey,
-      initialLocation: AppRoutes.mainScreen,
+      initialLocation: AppRoutes.splashScreen,
       routes: [
         GoRoute(
           path: AppRoutes.mainScreen,
@@ -21,6 +22,10 @@ class AppRouter {
             final isLoggedIn = firebaseuser.currentUser != null;
             return isLoggedIn ? const HomeScreen() : const LoginScreen();
           },
+        ),
+        GoRoute(
+          path: AppRoutes.splashScreen,
+          builder: ((context, state) => const SplashScreen()),
         ),
         GoRoute(
           path: AppRoutes.loginScreen,
