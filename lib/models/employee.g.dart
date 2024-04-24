@@ -12,8 +12,8 @@ _$EmployeeImpl _$$EmployeeImplFromJson(Map<String, dynamic> json) =>
       cnicId: json['cnicId'] as String,
       name: json['name'] as String? ?? '',
       designation: json['designation'] as String? ?? '',
-      phoneNo: json['phoneNo'] as String? ?? '',
-      pay: json['pay'] as String? ?? '',
+      phoneNo: json['phoneNo'] as int? ?? 0,
+      pay: json['pay'] as int? ?? 0,
       adress: json['adress'] as String? ?? '',
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null

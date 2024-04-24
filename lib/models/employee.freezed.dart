@@ -24,8 +24,8 @@ mixin _$Employee {
   String get cnicId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get designation => throw _privateConstructorUsedError;
-  String get phoneNo => throw _privateConstructorUsedError;
-  String get pay => throw _privateConstructorUsedError;
+  int get phoneNo => throw _privateConstructorUsedError;
+  int get pay => throw _privateConstructorUsedError;
   String? get adress => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -46,8 +46,8 @@ abstract class $EmployeeCopyWith<$Res> {
       String cnicId,
       String? name,
       String? designation,
-      String phoneNo,
-      String pay,
+      int phoneNo,
+      int pay,
       String? adress,
       DateTime createdAt,
       DateTime? updatedAt});
@@ -96,11 +96,11 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
       phoneNo: null == phoneNo
           ? _value.phoneNo
           : phoneNo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       pay: null == pay
           ? _value.pay
           : pay // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       adress: freezed == adress
           ? _value.adress
           : adress // ignore: cast_nullable_to_non_nullable
@@ -130,8 +130,8 @@ abstract class _$$EmployeeImplCopyWith<$Res>
       String cnicId,
       String? name,
       String? designation,
-      String phoneNo,
-      String pay,
+      int phoneNo,
+      int pay,
       String? adress,
       DateTime createdAt,
       DateTime? updatedAt});
@@ -178,11 +178,11 @@ class __$$EmployeeImplCopyWithImpl<$Res>
       phoneNo: null == phoneNo
           ? _value.phoneNo
           : phoneNo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       pay: null == pay
           ? _value.pay
           : pay // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       adress: freezed == adress
           ? _value.adress
           : adress // ignore: cast_nullable_to_non_nullable
@@ -207,8 +207,8 @@ class _$EmployeeImpl implements _Employee {
       required this.cnicId,
       this.name = '',
       this.designation = '',
-      this.phoneNo = '',
-      this.pay = '',
+      this.phoneNo = 0,
+      this.pay = 0,
       this.adress = '',
       required this.createdAt,
       this.updatedAt});
@@ -228,10 +228,10 @@ class _$EmployeeImpl implements _Employee {
   final String? designation;
   @override
   @JsonKey()
-  final String phoneNo;
+  final int phoneNo;
   @override
   @JsonKey()
-  final String pay;
+  final int pay;
   @override
   @JsonKey()
   final String? adress;
@@ -289,8 +289,8 @@ abstract class _Employee implements Employee {
       required final String cnicId,
       final String? name,
       final String? designation,
-      final String phoneNo,
-      final String pay,
+      final int phoneNo,
+      final int pay,
       final String? adress,
       required final DateTime createdAt,
       final DateTime? updatedAt}) = _$EmployeeImpl;
@@ -307,9 +307,9 @@ abstract class _Employee implements Employee {
   @override
   String? get designation;
   @override
-  String get phoneNo;
+  int get phoneNo;
   @override
-  String get pay;
+  int get pay;
   @override
   String? get adress;
   @override
