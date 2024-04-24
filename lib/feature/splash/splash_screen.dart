@@ -1,8 +1,6 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
-import 'package:employeemanager/feature/auth/screens/login_screen.dart';
-import 'package:employeemanager/feature/home/home_screen.dart';
 import 'package:employeemanager/models/employee_manager_user.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
