@@ -1,10 +1,13 @@
+import 'package:employeemanager/constant/string_constant.dart';
+import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/drawer/screens/drawer.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/add_employee_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/theme/theme_export.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +17,20 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final auth = FirebaseAuth.instance;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (auth.currentUser != null) {
+        ref
+            .read(authProvider.notifier)
+            .fetchInvestNetworkUser(auth.currentUser?.uid ?? '');
+        ref.read(authProvider.notifier).saveAuthUser(auth.currentUser);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -74,7 +91,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Size(220, 50),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              ref.read(authProvider.notifier).signOut();
+              context.pushReplacement(AppRoutes.mainScreen);
+            },
             child: const Text('Logout'),
           ),
         ],

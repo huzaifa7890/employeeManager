@@ -21,12 +21,14 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Employee {
   String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String get cnicId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get designation => throw _privateConstructorUsedError;
   int get phoneNo => throw _privateConstructorUsedError;
   int get pay => throw _privateConstructorUsedError;
   String? get adress => throw _privateConstructorUsedError;
+  String? get employeePic => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -43,12 +45,14 @@ abstract class $EmployeeCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String userId,
       String cnicId,
       String? name,
       String? designation,
       int phoneNo,
       int pay,
       String? adress,
+      String? employeePic,
       DateTime createdAt,
       DateTime? updatedAt});
 }
@@ -67,12 +71,14 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? cnicId = null,
     Object? name = freezed,
     Object? designation = freezed,
     Object? phoneNo = null,
     Object? pay = null,
     Object? adress = freezed,
+    Object? employeePic = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
@@ -80,6 +86,10 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       cnicId: null == cnicId
           ? _value.cnicId
@@ -104,6 +114,10 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
       adress: freezed == adress
           ? _value.adress
           : adress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      employeePic: freezed == employeePic
+          ? _value.employeePic
+          : employeePic // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -127,12 +141,14 @@ abstract class _$$EmployeeImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String userId,
       String cnicId,
       String? name,
       String? designation,
       int phoneNo,
       int pay,
       String? adress,
+      String? employeePic,
       DateTime createdAt,
       DateTime? updatedAt});
 }
@@ -149,12 +165,14 @@ class __$$EmployeeImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? cnicId = null,
     Object? name = freezed,
     Object? designation = freezed,
     Object? phoneNo = null,
     Object? pay = null,
     Object? adress = freezed,
+    Object? employeePic = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
@@ -162,6 +180,10 @@ class __$$EmployeeImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       cnicId: null == cnicId
           ? _value.cnicId
@@ -187,6 +209,10 @@ class __$$EmployeeImplCopyWithImpl<$Res>
           ? _value.adress
           : adress // ignore: cast_nullable_to_non_nullable
               as String?,
+      employeePic: freezed == employeePic
+          ? _value.employeePic
+          : employeePic // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -204,12 +230,14 @@ class __$$EmployeeImplCopyWithImpl<$Res>
 class _$EmployeeImpl implements _Employee {
   const _$EmployeeImpl(
       {required this.id,
+      required this.userId,
       required this.cnicId,
       this.name = '',
       this.designation = '',
       this.phoneNo = 0,
       this.pay = 0,
       this.adress = '',
+      this.employeePic = '',
       required this.createdAt,
       this.updatedAt});
 
@@ -218,6 +246,8 @@ class _$EmployeeImpl implements _Employee {
 
   @override
   final String id;
+  @override
+  final String userId;
   @override
   final String cnicId;
   @override
@@ -236,13 +266,16 @@ class _$EmployeeImpl implements _Employee {
   @JsonKey()
   final String? adress;
   @override
+  @JsonKey()
+  final String? employeePic;
+  @override
   final DateTime createdAt;
   @override
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'Employee(id: $id, cnicId: $cnicId, name: $name, designation: $designation, phoneNo: $phoneNo, pay: $pay, adress: $adress, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Employee(id: $id, userId: $userId, cnicId: $cnicId, name: $name, designation: $designation, phoneNo: $phoneNo, pay: $pay, adress: $adress, employeePic: $employeePic, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -251,6 +284,7 @@ class _$EmployeeImpl implements _Employee {
         (other.runtimeType == runtimeType &&
             other is _$EmployeeImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.cnicId, cnicId) || other.cnicId == cnicId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.designation, designation) ||
@@ -258,6 +292,8 @@ class _$EmployeeImpl implements _Employee {
             (identical(other.phoneNo, phoneNo) || other.phoneNo == phoneNo) &&
             (identical(other.pay, pay) || other.pay == pay) &&
             (identical(other.adress, adress) || other.adress == adress) &&
+            (identical(other.employeePic, employeePic) ||
+                other.employeePic == employeePic) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -266,8 +302,8 @@ class _$EmployeeImpl implements _Employee {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, cnicId, name, designation,
-      phoneNo, pay, adress, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, userId, cnicId, name,
+      designation, phoneNo, pay, adress, employeePic, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -286,12 +322,14 @@ class _$EmployeeImpl implements _Employee {
 abstract class _Employee implements Employee {
   const factory _Employee(
       {required final String id,
+      required final String userId,
       required final String cnicId,
       final String? name,
       final String? designation,
       final int phoneNo,
       final int pay,
       final String? adress,
+      final String? employeePic,
       required final DateTime createdAt,
       final DateTime? updatedAt}) = _$EmployeeImpl;
 
@@ -300,6 +338,8 @@ abstract class _Employee implements Employee {
 
   @override
   String get id;
+  @override
+  String get userId;
   @override
   String get cnicId;
   @override
@@ -312,6 +352,8 @@ abstract class _Employee implements Employee {
   int get pay;
   @override
   String? get adress;
+  @override
+  String? get employeePic;
   @override
   DateTime get createdAt;
   @override

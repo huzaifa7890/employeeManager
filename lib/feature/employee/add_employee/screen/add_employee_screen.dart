@@ -1,13 +1,16 @@
 import 'package:employeemanager/constant/string_constant.dart';
+import 'package:employeemanager/constant/ui_constant.dart';
 import 'package:employeemanager/core/service/image_picker_service.dart';
 import 'package:employeemanager/feature/auth/providers/image_provider.dart';
 import 'package:employeemanager/feature/auth/providers/user_provider.dart';
 import 'package:employeemanager/feature/auth/screens/register_profile_screen.dart';
+import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class AddEmployeeScreen extends ConsumerStatefulWidget {
   const AddEmployeeScreen({super.key});
@@ -29,7 +32,7 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final userProfilePic = ref.watch(userProvider)?.profilePic;
+    final pickedImage = ref.watch(imagePickerProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Employee'),
@@ -45,40 +48,45 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
                   Stack(
                     children: [
                       CircleAvatar(
-                          maxRadius: 60,
-                          minRadius: 60,
-                          backgroundColor:
-                              AppColors.fieldGrey, // Placeholder color
-                          child: (userProfilePic != null)
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    "userProfilePic,",
-                                    height: 70,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : null
-                          // : (pickedImage != null)
-                          //     ? ClipRRect(
-                          //         borderRadius: BorderRadius.circular(100),
-                          //         child: Image.file(
-                          //           pickedImage,
-                          //           height: 100,
-                          //           width: 100,
-                          //           scale: 1,
-                          //           filterQuality: FilterQuality.medium,
-                          //           fit: BoxFit.cover,
-                          //         ),
-                          //       )
-                          //     : Image.asset(
-                          //         AssetImages.personIcon,
-                          //         height: 55,
-                          //         width: 55,
-                          //         fit: BoxFit.contain,
-                          //       ),
-                          ),
+                        maxRadius: 60,
+                        minRadius: 60,
+                        backgroundColor:
+                            AppColors.fieldGrey, // Placeholder color
+                        child: (pickedImage != null)
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.file(
+                                  pickedImage,
+                                  height: 70,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Image.asset(
+                                AssetImages.personIcon,
+                                height: 55,
+                                width: 55,
+                                fit: BoxFit.contain,
+                              ),
+                        // : (pickedImage != null)
+                        //     ? ClipRRect(
+                        //         borderRadius: BorderRadius.circular(100),
+                        //         child: Image.file(
+                        //           pickedImage,
+                        //           height: 100,
+                        //           width: 100,
+                        //           scale: 1,
+                        //           filterQuality: FilterQuality.medium,
+                        //           fit: BoxFit.cover,
+                        //         ),
+                        //       )
+                        //     : Image.asset(
+                        //         AssetImages.personIcon,
+                        //         height: 55,
+                        //         width: 55,
+                        //         fit: BoxFit.contain,
+                        //       ),
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -342,7 +350,43 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Implement save functionality
+                  showLoaderDialog(
+                    context,
+                    true,
+                    theme: theme,
+                  );
+
+                  final userId = ref.read(userProvider)?.id;
+
+                  ref.read(addEmployeeProvider.notifier).addEmployee(
+                        id: const Uuid().v1(),
+                        userId: userId ?? '',
+                        cnicId: cnicController.text,
+                        fullName: fullNameController.text,
+                        designation: designationController.text,
+                        mobileNo: int.parse(mobileNoController.text),
+                        pay: int.parse(mobileNoController.text),
+                        address: addressController.text,
+                        selectedImage: pickedImage,
+                      );
+                  final response =
+                      ref.read(addEmployeeProvider.notifier).saveEmployee();
+                  response.then((value) {
+                    return showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        showDragHandle: true,
+                        enableDrag: true,
+                        backgroundColor: theme.colorScheme.primary,
+                        isDismissible: true,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        builder: (BuildContext context) {
+                          return const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text("data"));
+                        });
+                  });
                 },
                 child: const Text('Save'),
               ),
