@@ -31,14 +31,14 @@ class EmployeeFirebaseRepository {
       //     .where('sellerId', isEqualTo: userId)
       //     .get();
       final querySnapshot = await firebaseReference.employee.get();
-      final List<Employee> properties = [];
+      final List<Employee> employees = [];
       for (var doc in querySnapshot.docs) {
-        final property = doc.data();
-        properties.add(property);
+        final employee = doc.data();
+        employees.add(employee);
       }
 
       return FirebaseResponse<List<Employee>>(
-          data: properties, errorMessage: '');
+          data: employees, errorMessage: '');
     } catch (e) {
       return FirebaseResponse(errorMessage: e.toString());
     }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:employeemanager/constant/navigation_service.dart';
 import 'package:employeemanager/core/repository/firestore_repo.dart';
+import 'package:employeemanager/feature/auth/providers/user_provider.dart';
 import 'package:employeemanager/feature/auth/repository/firestorage_repo.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/employee_provider.dart';
 import 'package:employeemanager/feature/employee/add_employee/repo/add_employee_repo.dart';
@@ -18,18 +19,32 @@ final addEmployeeProvider = NotifierProvider<AddEmployee, AddEmployeeState>(
 
 class AddEmployeeState {
   final List<Employee> employeeList;
+  final bool isLoading;
+  final String? errorMessage;
 
-  AddEmployeeState({required this.employeeList});
+  AddEmployeeState({
+    required this.employeeList,
+    required this.errorMessage,
+    required this.isLoading,
+  });
 
   AddEmployeeState copyWith({
     List<Employee>? employeeList,
+    bool? isLoading,
+    String? errorMessage,
   }) {
     return AddEmployeeState(
       employeeList: employeeList ?? this.employeeList,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
-  factory AddEmployeeState.initial() => AddEmployeeState(employeeList: []);
+  factory AddEmployeeState.initial() => AddEmployeeState(
+        employeeList: [],
+        isLoading: false,
+        errorMessage: '',
+      );
 }
 
 class AddEmployee extends Notifier<AddEmployeeState> {
@@ -72,6 +87,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
 
     final addProperty = [...state.employeeList, newEmployee];
     state = state.copyWith(employeeList: addProperty);
+    NavigationService.navigatorKey.currentState?.pop();
     ref.read(employeeProvider.notifier).state = newEmployee;
     return const Response(isSuccess: true, errorMessage: '');
   }
@@ -80,8 +96,19 @@ class AddEmployee extends Notifier<AddEmployeeState> {
     final employeeRepo = EmployeeFirebaseRepository(firebaseReference);
     final employee = ref.read(employeeProvider);
     final response = await employeeRepo.saveEmployee(employee!);
-    NavigationService.navigatorKey.currentState?.pop();
     return Response(isSuccess: true, errorMessage: response.errorMessage);
+  }
+
+  Future<FirebaseResponse<List<Employee>>> fetchAllEmployee() async {
+    final userId = ref.read(userProvider)?.id ?? '';
+    final employeeRepo = EmployeeFirebaseRepository(firebaseReference);
+    final response = await employeeRepo.fetchAllEmployees(userId);
+    state = state.copyWith(
+        isLoading: false, errorMessage: null, employeeList: response.data);
+    return FirebaseResponse(
+      data: response.data,
+      errorMessage: response.errorMessage,
+    );
   }
 
   @override
