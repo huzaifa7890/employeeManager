@@ -435,12 +435,23 @@ class _RegisterProfileAccountScreenState
                           phoneNo: phoneController.text,
                           createdAt: DateTime.now(),
                         );
-                    await ref.read(authProvider.notifier).saveEmployeeUser();
+
                     response.then((response) {
                       if (response.errorMessage.isNotEmpty) {
                         return context.showSnackBar(response.errorMessage);
                       } else {
-                        context.pushReplacement(AppRoutes.homeScreen);
+                        final response =
+                            ref.read(authProvider.notifier).saveEmployeeUser();
+                        response.then((value) => {
+                              if (value.errorMessage.isNotEmpty)
+                                {
+                                  context.showSnackBar(value.errorMessage),
+                                }
+                              else
+                                {
+                                  context.pushReplacement(AppRoutes.homeScreen),
+                                }
+                            });
                       }
                     });
                     // }

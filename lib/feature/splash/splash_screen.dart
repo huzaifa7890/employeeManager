@@ -53,8 +53,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           ref.read(authProvider.notifier).saveAuthUser(auth.currentUser);
         }
 
-        if (invesNetworkUser != null) {
+        if (invesNetworkUser != null && auth.currentUser != null) {
           context.pushReplacement(AppRoutes.mainScreen);
+        } else if (invesNetworkUser == null && auth.currentUser != null) {
+          context.pushReplacement(AppRoutes.registerProfileScreen);
         } else {
           Future.delayed(const Duration(milliseconds: 2000), () {
             context.pushReplacement(AppRoutes.mainScreen);

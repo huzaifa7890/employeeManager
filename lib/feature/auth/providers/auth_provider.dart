@@ -145,6 +145,7 @@ class AuthNotifier extends Notifier<AuthState> {
         email: email ?? "",
         phoneNo: phoneNo ?? "",
         profilePic: profilePic ?? "",
+        currentAddress: currentAddress ?? '',
         createdAt: createdAt ?? DateTime.now(),
       );
       ref.read(userProvider.notifier).state = newEmployeeManagerUser;
@@ -160,6 +161,8 @@ class AuthNotifier extends Notifier<AuthState> {
     String? email,
     DateTime? createdAt,
   }) async {
+    final auth = FirebaseAuth.instance;
+    final authEmail = auth.currentUser?.email;
     FirebaseResponse<String> firebaseresponse =
         const FirebaseResponse(errorMessage: '');
 
@@ -172,7 +175,7 @@ class AuthNotifier extends Notifier<AuthState> {
         name: name,
         phoneNo: phoneNo,
         currentAddress: currentAddress,
-        email: email,
+        email: email ?? authEmail,
         createdAt: DateTime.now(),
         profilePic: firebaseresponse.data,
         id: userId,
@@ -183,7 +186,7 @@ class AuthNotifier extends Notifier<AuthState> {
         name: name,
         phoneNo: phoneNo,
         currentAddress: currentAddress,
-        email: email,
+        email: email ?? authEmail,
         createdAt: DateTime.now(),
         profilePic: firebaseresponse.data,
         id: userId,
