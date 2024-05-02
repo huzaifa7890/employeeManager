@@ -27,10 +27,10 @@ class EmployeeFirebaseRepository {
   Future<FirebaseResponse<List<Employee>>> fetchAllEmployees(
       String userId) async {
     try {
-      // final querySnapshot = await firebaseReference.properties
-      //     .where('sellerId', isEqualTo: userId)
-      //     .get();
-      final querySnapshot = await firebaseReference.employee.get();
+      final querySnapshot = await firebaseReference.employee
+          .where('userId', isEqualTo: userId)
+          .get();
+      // final querySnapshot = await firebaseReference.employee.get();
       final List<Employee> employees = [];
       for (var doc in querySnapshot.docs) {
         final employee = doc.data();

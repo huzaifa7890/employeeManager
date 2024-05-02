@@ -21,6 +21,11 @@ _$EmployeeImpl _$$EmployeeImplFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      employeeAttendence: (json['employeeAttendence'] as List<dynamic>?)
+              ?.map(
+                  (e) => EmployeeAttendence.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$EmployeeImplToJson(_$EmployeeImpl instance) =>
@@ -36,4 +41,5 @@ Map<String, dynamic> _$$EmployeeImplToJson(_$EmployeeImpl instance) =>
       'employeePic': instance.employeePic,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'employeeAttendence': instance.employeeAttendence,
     };

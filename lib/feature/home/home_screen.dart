@@ -3,6 +3,7 @@ import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/drawer/screens/drawer.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/add_employee_screen.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/employee_list.dart';
+import 'package:employeemanager/feature/employee/employee_attendence/employee_attendence_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/theme/theme_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -87,6 +88,45 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.amber),
                   child: const Center(child: Text("List")),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const EmployeeAttendenceScreen();
+                  }));
+                },
+                child: Container(
+                  height: 50,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.amber),
+                  child: const Center(child: Text("Mark Attendence")),
+                ),
+              ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  // Navigator.of(context)
+                  //     .push(MaterialPageRoute(builder: (context) {
+                  //   return const EmployeeList();
+                  // }));
+                },
+                child: Container(
+                  height: 50,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.amber),
+                  child: const Center(child: Text("ListVirere")),
                 ),
               ),
             ],

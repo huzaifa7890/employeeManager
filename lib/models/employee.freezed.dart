@@ -31,6 +31,8 @@ mixin _$Employee {
   String? get employeePic => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  List<EmployeeAttendence> get employeeAttendence =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +56,8 @@ abstract class $EmployeeCopyWith<$Res> {
       String? adress,
       String? employeePic,
       DateTime createdAt,
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      List<EmployeeAttendence> employeeAttendence});
 }
 
 /// @nodoc
@@ -81,6 +84,7 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
     Object? employeePic = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
+    Object? employeeAttendence = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -127,6 +131,10 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      employeeAttendence: null == employeeAttendence
+          ? _value.employeeAttendence
+          : employeeAttendence // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeAttendence>,
     ) as $Val);
   }
 }
@@ -150,7 +158,8 @@ abstract class _$$EmployeeImplCopyWith<$Res>
       String? adress,
       String? employeePic,
       DateTime createdAt,
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      List<EmployeeAttendence> employeeAttendence});
 }
 
 /// @nodoc
@@ -175,6 +184,7 @@ class __$$EmployeeImplCopyWithImpl<$Res>
     Object? employeePic = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
+    Object? employeeAttendence = null,
   }) {
     return _then(_$EmployeeImpl(
       id: null == id
@@ -221,6 +231,10 @@ class __$$EmployeeImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      employeeAttendence: null == employeeAttendence
+          ? _value._employeeAttendence
+          : employeeAttendence // ignore: cast_nullable_to_non_nullable
+              as List<EmployeeAttendence>,
     ));
   }
 }
@@ -239,7 +253,9 @@ class _$EmployeeImpl implements _Employee {
       this.adress = '',
       this.employeePic = '',
       required this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      final List<EmployeeAttendence> employeeAttendence = const []})
+      : _employeeAttendence = employeeAttendence;
 
   factory _$EmployeeImpl.fromJson(Map<String, dynamic> json) =>
       _$$EmployeeImplFromJson(json);
@@ -272,10 +288,19 @@ class _$EmployeeImpl implements _Employee {
   final DateTime createdAt;
   @override
   final DateTime? updatedAt;
+  final List<EmployeeAttendence> _employeeAttendence;
+  @override
+  @JsonKey()
+  List<EmployeeAttendence> get employeeAttendence {
+    if (_employeeAttendence is EqualUnmodifiableListView)
+      return _employeeAttendence;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_employeeAttendence);
+  }
 
   @override
   String toString() {
-    return 'Employee(id: $id, userId: $userId, cnicId: $cnicId, name: $name, designation: $designation, phoneNo: $phoneNo, pay: $pay, adress: $adress, employeePic: $employeePic, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Employee(id: $id, userId: $userId, cnicId: $cnicId, name: $name, designation: $designation, phoneNo: $phoneNo, pay: $pay, adress: $adress, employeePic: $employeePic, createdAt: $createdAt, updatedAt: $updatedAt, employeeAttendence: $employeeAttendence)';
   }
 
   @override
@@ -297,13 +322,27 @@ class _$EmployeeImpl implements _Employee {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality()
+                .equals(other._employeeAttendence, _employeeAttendence));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, cnicId, name,
-      designation, phoneNo, pay, adress, employeePic, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      cnicId,
+      name,
+      designation,
+      phoneNo,
+      pay,
+      adress,
+      employeePic,
+      createdAt,
+      updatedAt,
+      const DeepCollectionEquality().hash(_employeeAttendence));
 
   @JsonKey(ignore: true)
   @override
@@ -331,7 +370,8 @@ abstract class _Employee implements Employee {
       final String? adress,
       final String? employeePic,
       required final DateTime createdAt,
-      final DateTime? updatedAt}) = _$EmployeeImpl;
+      final DateTime? updatedAt,
+      final List<EmployeeAttendence> employeeAttendence}) = _$EmployeeImpl;
 
   factory _Employee.fromJson(Map<String, dynamic> json) =
       _$EmployeeImpl.fromJson;
@@ -358,6 +398,8 @@ abstract class _Employee implements Employee {
   DateTime get createdAt;
   @override
   DateTime? get updatedAt;
+  @override
+  List<EmployeeAttendence> get employeeAttendence;
   @override
   @JsonKey(ignore: true)
   _$$EmployeeImplCopyWith<_$EmployeeImpl> get copyWith =>

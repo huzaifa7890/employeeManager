@@ -1,3 +1,4 @@
+import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'employee.freezed.dart';
 part 'employee.g.dart';
@@ -16,6 +17,7 @@ class Employee with _$Employee {
     @Default('') String? employeePic,
     required DateTime createdAt,
     DateTime? updatedAt,
+    @Default([]) List<EmployeeAttendence> employeeAttendence,
   }) = _Employee;
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);
