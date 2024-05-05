@@ -39,18 +39,25 @@ class _EmployeeAttendenceScreenState
       body: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("data"),
+              Text(
+                "Date",
+                style: theme.textTheme.bodyLarge,
+              ),
               Container(
                 width: 200,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: AppColors.amber,
+                  color: AppColors.purple,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text(
-                  DateFormat('dd MMMM y').format(DateTime.now()),
+                child: Center(
+                  child: Text(
+                    DateFormat('dd MMMM y').format(DateTime.now()),
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: AppColors.primary),
+                  ),
                 ),
               ),
             ],
@@ -82,7 +89,7 @@ class _EmployeeAttendenceScreenState
                                                 BorderRadius.circular(51),
                                             child: Image.network(
                                               employee.employeePic!,
-                                              height: 70,
+                                              height: 100,
                                               width: 100,
                                               fit: BoxFit.cover,
                                             ),
