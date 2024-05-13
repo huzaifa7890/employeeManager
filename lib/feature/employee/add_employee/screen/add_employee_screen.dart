@@ -63,7 +63,7 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.file(
                                     pickedImage,
-                                    height: 70,
+                                    height: 100,
                                     width: 100,
                                     fit: BoxFit.cover,
                                   ),
