@@ -28,22 +28,22 @@ class AppDrawer extends ConsumerWidget {
                 context.pushReplacementNamed('/');
               },
             ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Orders'),
-              onTap: () {
-                // Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Manage Products'),
-              onTap: () {
-                // Navigator.of(context).pushReplacementNamed(UserProduct.routeName);
-              },
-            ),
+            // const Divider(),
+            // ListTile(
+            //   leading: const Icon(Icons.payment),
+            //   title: const Text('Orders'),
+            //   onTap: () {
+            //     // Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
+            //   },
+            // ),
+            // const Divider(),
+            // ListTile(
+            //   leading: const Icon(Icons.edit),
+            //   title: const Text('Manage Products'),
+            //   onTap: () {
+            //     // Navigator.of(context).pushReplacementNamed(UserProduct.routeName);
+            //   },
+            // ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.exit_to_app),

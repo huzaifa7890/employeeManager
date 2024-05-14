@@ -66,11 +66,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
                 child: Container(
                   height: 50,
-                  width: 80,
+                  width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: AppColors.amber),
-                  child: const Center(child: Text("Add")),
+                      color: AppColors.onboardingButton),
+                  child: Center(
+                      child: Text(
+                    "Add",
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: AppColors.primary),
+                  )),
                 ),
               ),
               const SizedBox(width: 10),
@@ -83,11 +88,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
                 child: Container(
                   height: 50,
-                  width: 80,
+                  width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: AppColors.amber),
-                  child: const Center(child: Text("List")),
+                      color: AppColors.onboardingButton),
+                  child: Center(
+                      child: Text(
+                    "List",
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: AppColors.primary),
+                  )),
                 ),
               ),
             ],
@@ -105,11 +115,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
                 child: Container(
                   height: 50,
-                  width: 80,
+                  width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: AppColors.amber),
-                  child: const Center(child: Text("Mark Attendence")),
+                      color: AppColors.onboardingButton),
+                  child: Center(
+                      child: Text(
+                    "Attendence",
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: AppColors.primary),
+                  )),
                 ),
               ),
               const SizedBox(width: 10),
@@ -122,15 +137,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
                 child: Container(
                   height: 50,
-                  width: 80,
+                  width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: AppColors.amber),
-                  child: const Center(child: Text("ListVirere")),
+                      color: AppColors.onboardingButton),
+                  child: Center(
+                      child: Text(
+                    "ListView",
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: AppColors.primary),
+                  )),
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 20),
           ElevatedButton(
             style: const ButtonStyle(
               minimumSize: MaterialStatePropertyAll(

@@ -58,7 +58,7 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
                                       borderRadius: BorderRadius.circular(51),
                                       child: Image.network(
                                         employee.employeePic!,
-                                        height: 70,
+                                        height: 100,
                                         width: 100,
                                         fit: BoxFit.cover,
                                       ),
