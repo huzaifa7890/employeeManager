@@ -22,3 +22,11 @@ class Employee with _$Employee {
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);
 }
+
+enum EmployeeAttendenceStatus {
+  present,
+  absent,
+  half,
+  double,
+  overtime,
+}

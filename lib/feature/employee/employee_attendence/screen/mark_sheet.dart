@@ -1,4 +1,7 @@
+import 'package:employeemanager/constant/data_constant.dart';
 import 'package:employeemanager/constant/string_constant.dart';
+import 'package:employeemanager/feature/employee/employee_attendence/provider/attendence_provider.dart';
+import 'package:employeemanager/feature/employee/employee_attendence/widgets/attendence_widget.dart';
 import 'package:employeemanager/models/employee.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,8 @@ class MarkAttendenceSheet extends ConsumerStatefulWidget {
 class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
   @override
   Widget build(BuildContext context) {
+    final selectEmployeeAttendence =
+        ref.watch(attendenceProvider).employeeAttendence;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -123,28 +128,38 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  "Attendance",
-                  style: theme.textTheme.bodyLarge,
+                // Text(
+                //   "Attendance",
+                //   style: theme.textTheme.bodyLarge,
+                // ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: Wrap(
+                      spacing: 8,
+                      children: EmployeeAttendenceStatus.values.map((item) {
+                        return AttendenceMarkWidget(
+                          text: getEmployeeAttendenceStatus(item),
+                          isSelected: selectEmployeeAttendence == item,
+                          onPressed: () {
+                            ref
+                                .read(attendenceProvider.notifier)
+                                .setAttendence(item);
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
-                Wrap(
-                  children: [
-                    for (var attendance in widget.employee.employeeAttendence)
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            value: attendance.present,
-                            onChanged: (value) {
-                              // Handle checkbox value change
-                            },
-                          ),
-                          Text("Present", style: theme.textTheme.bodyMedium),
-                          // Similar lines for other attendance properties
-                        ],
-                      ),
-                  ],
-                ),
+
+                const SizedBox(height: 20),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     // Store the attendance data
+                //     print(attendanceMap);
+                //   },
+                //   child: Text("Submit"),
+                // ),
               ],
             ),
           ],

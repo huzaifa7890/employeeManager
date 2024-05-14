@@ -20,11 +20,7 @@ EmployeeAttendence _$EmployeeAttendenceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EmployeeAttendence {
-  bool get present => throw _privateConstructorUsedError;
-  bool get absent => throw _privateConstructorUsedError;
-  bool get halfDay => throw _privateConstructorUsedError;
-  bool get double => throw _privateConstructorUsedError;
-  bool get overTime => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,13 +35,7 @@ abstract class $EmployeeAttendenceCopyWith<$Res> {
           EmployeeAttendence value, $Res Function(EmployeeAttendence) then) =
       _$EmployeeAttendenceCopyWithImpl<$Res, EmployeeAttendence>;
   @useResult
-  $Res call(
-      {bool present,
-      bool absent,
-      bool halfDay,
-      bool double,
-      bool overTime,
-      DateTime dateTime});
+  $Res call({String status, DateTime dateTime});
 }
 
 /// @nodoc
@@ -61,34 +51,14 @@ class _$EmployeeAttendenceCopyWithImpl<$Res, $Val extends EmployeeAttendence>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? present = null,
-    Object? absent = null,
-    Object? halfDay = null,
-    Object? double = null,
-    Object? overTime = null,
+    Object? status = null,
     Object? dateTime = null,
   }) {
     return _then(_value.copyWith(
-      present: null == present
-          ? _value.present
-          : present // ignore: cast_nullable_to_non_nullable
-              as bool,
-      absent: null == absent
-          ? _value.absent
-          : absent // ignore: cast_nullable_to_non_nullable
-              as bool,
-      halfDay: null == halfDay
-          ? _value.halfDay
-          : halfDay // ignore: cast_nullable_to_non_nullable
-              as bool,
-      double: null == double
-          ? _value.double
-          : double // ignore: cast_nullable_to_non_nullable
-              as bool,
-      overTime: null == overTime
-          ? _value.overTime
-          : overTime // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -105,13 +75,7 @@ abstract class _$$EmployeeAttendenceImplCopyWith<$Res>
       __$$EmployeeAttendenceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool present,
-      bool absent,
-      bool halfDay,
-      bool double,
-      bool overTime,
-      DateTime dateTime});
+  $Res call({String status, DateTime dateTime});
 }
 
 /// @nodoc
@@ -125,34 +89,14 @@ class __$$EmployeeAttendenceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? present = null,
-    Object? absent = null,
-    Object? halfDay = null,
-    Object? double = null,
-    Object? overTime = null,
+    Object? status = null,
     Object? dateTime = null,
   }) {
     return _then(_$EmployeeAttendenceImpl(
-      present: null == present
-          ? _value.present
-          : present // ignore: cast_nullable_to_non_nullable
-              as bool,
-      absent: null == absent
-          ? _value.absent
-          : absent // ignore: cast_nullable_to_non_nullable
-              as bool,
-      halfDay: null == halfDay
-          ? _value.halfDay
-          : halfDay // ignore: cast_nullable_to_non_nullable
-              as bool,
-      double: null == double
-          ? _value.double
-          : double // ignore: cast_nullable_to_non_nullable
-              as bool,
-      overTime: null == overTime
-          ? _value.overTime
-          : overTime // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -164,38 +108,20 @@ class __$$EmployeeAttendenceImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
-  const _$EmployeeAttendenceImpl(
-      {this.present = false,
-      this.absent = false,
-      this.halfDay = false,
-      this.double = false,
-      this.overTime = false,
-      required this.dateTime});
+  const _$EmployeeAttendenceImpl({this.status = '', required this.dateTime});
 
   factory _$EmployeeAttendenceImpl.fromJson(Map<String, dynamic> json) =>
       _$$EmployeeAttendenceImplFromJson(json);
 
   @override
   @JsonKey()
-  final bool present;
-  @override
-  @JsonKey()
-  final bool absent;
-  @override
-  @JsonKey()
-  final bool halfDay;
-  @override
-  @JsonKey()
-  final bool double;
-  @override
-  @JsonKey()
-  final bool overTime;
+  final String status;
   @override
   final DateTime dateTime;
 
   @override
   String toString() {
-    return 'EmployeeAttendence(present: $present, absent: $absent, halfDay: $halfDay, double: $double, overTime: $overTime, dateTime: $dateTime)';
+    return 'EmployeeAttendence(status: $status, dateTime: $dateTime)';
   }
 
   @override
@@ -203,20 +129,14 @@ class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EmployeeAttendenceImpl &&
-            (identical(other.present, present) || other.present == present) &&
-            (identical(other.absent, absent) || other.absent == absent) &&
-            (identical(other.halfDay, halfDay) || other.halfDay == halfDay) &&
-            (identical(other.double, double) || other.double == double) &&
-            (identical(other.overTime, overTime) ||
-                other.overTime == overTime) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, present, absent, halfDay, double, overTime, dateTime);
+  int get hashCode => Object.hash(runtimeType, status, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -235,26 +155,14 @@ class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
 
 abstract class _EmployeeAttendence implements EmployeeAttendence {
   const factory _EmployeeAttendence(
-      {final bool present,
-      final bool absent,
-      final bool halfDay,
-      final bool double,
-      final bool overTime,
+      {final String status,
       required final DateTime dateTime}) = _$EmployeeAttendenceImpl;
 
   factory _EmployeeAttendence.fromJson(Map<String, dynamic> json) =
       _$EmployeeAttendenceImpl.fromJson;
 
   @override
-  bool get present;
-  @override
-  bool get absent;
-  @override
-  bool get halfDay;
-  @override
-  bool get double;
-  @override
-  bool get overTime;
+  String get status;
   @override
   DateTime get dateTime;
   @override

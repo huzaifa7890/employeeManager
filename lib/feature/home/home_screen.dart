@@ -3,7 +3,7 @@ import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/drawer/screens/drawer.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/add_employee_screen.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/employee_list.dart';
-import 'package:employeemanager/feature/employee/employee_attendence/employee_attendence_screen.dart';
+import 'package:employeemanager/feature/employee/employee_attendence/screen/employee_attendence_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/theme/theme_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';

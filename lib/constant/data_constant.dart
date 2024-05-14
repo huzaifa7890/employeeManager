@@ -1,3 +1,4 @@
+import 'package:employeemanager/models/employee.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 String firebaseAuthException(FirebaseAuthException e) {
@@ -114,5 +115,21 @@ String firebaseAuthException(FirebaseAuthException e) {
       return "There is no existing user record corresponding to the provided identifier.";
     default:
       return e.message ?? e.toString();
+  }
+}
+
+String getEmployeeAttendenceStatus(
+    EmployeeAttendenceStatus employeeAttendenceStatus) {
+  switch (employeeAttendenceStatus) {
+    case EmployeeAttendenceStatus.present:
+      return 'Present';
+    case EmployeeAttendenceStatus.absent:
+      return 'Absent';
+    case EmployeeAttendenceStatus.half:
+      return 'Half Day';
+    case EmployeeAttendenceStatus.double:
+      return 'Double';
+    case EmployeeAttendenceStatus.overtime:
+      return 'OverTime';
   }
 }
