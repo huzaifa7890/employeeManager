@@ -1,6 +1,6 @@
 import 'package:employeemanager/constant/data_constant.dart';
 import 'package:employeemanager/constant/string_constant.dart';
-import 'package:employeemanager/feature/employee/employee_attendence/provider/attendence_provider.dart';
+import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/widgets/attendence_widget.dart';
 import 'package:employeemanager/models/employee.dart';
 import 'package:employeemanager/theme/app_colors.dart';
@@ -19,10 +19,15 @@ class MarkAttendenceSheet extends ConsumerStatefulWidget {
 }
 
 class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
+  TextEditingController basicPayController = TextEditingController();
+  TextEditingController taxDebitController = TextEditingController();
+  TextEditingController bonusController = TextEditingController();
+  TextEditingController totalController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final selectEmployeeAttendence =
-        ref.watch(attendenceProvider).employeeAttendence;
+        ref.watch(addEmployeeProvider).employeeAttendenceStatus;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -103,7 +108,7 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -141,7 +146,7 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                         isSelected: selectEmployeeAttendence == item,
                         onPressed: () {
                           ref
-                              .read(attendenceProvider.notifier)
+                              .read(addEmployeeProvider.notifier)
                               .setAttendence(item);
                         },
                       );
@@ -154,10 +159,8 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                 height: 65,
                 enabled: false,
                 hintText: "Basic Pay",
-
                 textAlign: TextAlign.end,
-                initialValue: widget.employee.pay.toString(),
-                // textController: cnicController,
+                textController: basicPayController,
                 fillColor: AppColors.fieldGrey,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -171,19 +174,15 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                   }
                   return null;
                 },
-
                 hintStyle: theme.textTheme.bodyLarge,
                 lines: 1,
               ),
               const SizedBox(height: 10),
               AppTextField(
                 height: 65,
-                // enabled: false,
                 hintText: "Tax/Debit",
-
                 textAlign: TextAlign.end,
-                // initialValue: widget.employee.pay.toString(),
-                // textController: cnicController,
+                textController: taxDebitController,
                 fillColor: AppColors.fieldGrey,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -197,19 +196,15 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                   }
                   return null;
                 },
-
                 hintStyle: theme.textTheme.bodyLarge,
                 lines: 1,
               ),
               const SizedBox(height: 10),
               AppTextField(
                 height: 65,
-                // enabled: false,
                 hintText: "Bonus",
-
                 textAlign: TextAlign.end,
-                // initialValue: widget.employee.pay.toString(),
-                // textController: cnicController,
+                textController: bonusController,
                 fillColor: AppColors.fieldGrey,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -223,19 +218,15 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                   }
                   return null;
                 },
-
                 hintStyle: theme.textTheme.bodyLarge,
                 lines: 1,
               ),
               const SizedBox(height: 10),
               AppTextField(
                 height: 65,
-                // enabled: false,
                 hintText: "Total Payments",
-
                 textAlign: TextAlign.end,
-                // initialValue: widget.employee.pay.toString(),
-                // textController: cnicController,
+                textController: totalController,
                 fillColor: AppColors.fieldGrey,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -249,9 +240,19 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                   }
                   return null;
                 },
-
                 hintStyle: theme.textTheme.bodyLarge,
                 lines: 1,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(addEmployeeProvider.notifier).updateAttendence(
+                        widget.employee.id,
+                        int.parse(taxDebitController.text),
+                        int.parse(bonusController.text),
+                        int.parse(totalController.text),
+                      );
+                },
+                child: const Text('Update'),
               ),
             ],
           ),

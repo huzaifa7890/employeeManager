@@ -1,17 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:employeemanager/feature/employee/employee_attendence/repo/employee_attendence_repo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:employeemanager/constant/navigation_service.dart';
 import 'package:employeemanager/core/repository/firestore_repo.dart';
 import 'package:employeemanager/feature/auth/providers/user_provider.dart';
 import 'package:employeemanager/feature/auth/repository/firestorage_repo.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/employee_provider.dart';
 import 'package:employeemanager/feature/employee/add_employee/repo/add_employee_repo.dart';
+import 'package:employeemanager/models/employee.dart';
+import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:employeemanager/response/firebase_response/firebase_response_model.dart';
 import 'package:employeemanager/response/response.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:employeemanager/models/employee.dart';
 
 final addEmployeeProvider = NotifierProvider<AddEmployee, AddEmployeeState>(
   () => AddEmployee(firebaseReference: FirebaseReference()),
@@ -21,22 +23,31 @@ class AddEmployeeState {
   final List<Employee> employeeList;
   final bool isLoading;
   final String? errorMessage;
+  EmployeeAttendenceStatus? employeeAttendenceStatus;
+  EmployeeAttendence? employeeAttendence;
 
   AddEmployeeState({
     required this.employeeList,
     required this.errorMessage,
     required this.isLoading,
+    this.employeeAttendence,
+    this.employeeAttendenceStatus,
   });
 
   AddEmployeeState copyWith({
     List<Employee>? employeeList,
     bool? isLoading,
     String? errorMessage,
+    EmployeeAttendenceStatus? employeeAttendenceStatus,
+    EmployeeAttendence? employeeAttendence,
   }) {
     return AddEmployeeState(
       employeeList: employeeList ?? this.employeeList,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
+      employeeAttendenceStatus:
+          employeeAttendenceStatus ?? this.employeeAttendenceStatus,
+      employeeAttendence: employeeAttendence ?? this.employeeAttendence,
     );
   }
 
@@ -109,6 +120,45 @@ class AddEmployee extends Notifier<AddEmployeeState> {
       data: response.data,
       errorMessage: response.errorMessage,
     );
+  }
+
+  void setAttendence(EmployeeAttendenceStatus employeeAttendence) {
+    state = state.copyWith(employeeAttendenceStatus: employeeAttendence);
+  }
+
+  Future<void> updateAttendence(
+      String employeeId, int taxDebit, int bonus, int totalPayment) async {
+    final employeeAttendenceRepo =
+        EmployeeAttendenceFirebaseRepository(firebaseReference);
+
+    final employeeAttendence = EmployeeAttendence(
+      dateTime: DateTime.now().toIso8601String(),
+      status: state.employeeAttendenceStatus!,
+      bonus: bonus,
+      taxDebit: taxDebit,
+      totalPayment: totalPayment,
+    );
+
+    final employeeIndex = state.employeeList.indexWhere(
+      (element) => element.id == employeeId,
+    );
+    final updatedEmployee = state.employeeList[employeeIndex].copyWith(
+      employeeAttendence: [
+        ...state.employeeList[employeeIndex].employeeAttendence,
+        EmployeeAttendence(
+          dateTime: DateTime.now().toIso8601String(),
+          status: state.employeeAttendenceStatus!,
+          bonus: bonus,
+          taxDebit: taxDebit,
+          totalPayment: totalPayment,
+        ),
+      ],
+    );
+    final List<Employee> updatedEmployees = [...state.employeeList];
+    updatedEmployees[employeeIndex] = updatedEmployee;
+    await employeeAttendenceRepo.updateAttendenceEmployee(
+        employeeId, employeeAttendence);
+    state = state.copyWith(employeeList: updatedEmployees);
   }
 
   @override

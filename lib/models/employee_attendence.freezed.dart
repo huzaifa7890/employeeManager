@@ -20,8 +20,11 @@ EmployeeAttendence _$EmployeeAttendenceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EmployeeAttendence {
-  String get status => throw _privateConstructorUsedError;
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  EmployeeAttendenceStatus get status => throw _privateConstructorUsedError;
+  String get dateTime => throw _privateConstructorUsedError;
+  int get bonus => throw _privateConstructorUsedError;
+  int get taxDebit => throw _privateConstructorUsedError;
+  int get totalPayment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +38,12 @@ abstract class $EmployeeAttendenceCopyWith<$Res> {
           EmployeeAttendence value, $Res Function(EmployeeAttendence) then) =
       _$EmployeeAttendenceCopyWithImpl<$Res, EmployeeAttendence>;
   @useResult
-  $Res call({String status, DateTime dateTime});
+  $Res call(
+      {EmployeeAttendenceStatus status,
+      String dateTime,
+      int bonus,
+      int taxDebit,
+      int totalPayment});
 }
 
 /// @nodoc
@@ -53,16 +61,31 @@ class _$EmployeeAttendenceCopyWithImpl<$Res, $Val extends EmployeeAttendence>
   $Res call({
     Object? status = null,
     Object? dateTime = null,
+    Object? bonus = null,
+    Object? taxDebit = null,
+    Object? totalPayment = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as EmployeeAttendenceStatus,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
+      bonus: null == bonus
+          ? _value.bonus
+          : bonus // ignore: cast_nullable_to_non_nullable
+              as int,
+      taxDebit: null == taxDebit
+          ? _value.taxDebit
+          : taxDebit // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPayment: null == totalPayment
+          ? _value.totalPayment
+          : totalPayment // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -75,7 +98,12 @@ abstract class _$$EmployeeAttendenceImplCopyWith<$Res>
       __$$EmployeeAttendenceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String status, DateTime dateTime});
+  $Res call(
+      {EmployeeAttendenceStatus status,
+      String dateTime,
+      int bonus,
+      int taxDebit,
+      int totalPayment});
 }
 
 /// @nodoc
@@ -91,16 +119,31 @@ class __$$EmployeeAttendenceImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? dateTime = null,
+    Object? bonus = null,
+    Object? taxDebit = null,
+    Object? totalPayment = null,
   }) {
     return _then(_$EmployeeAttendenceImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as EmployeeAttendenceStatus,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
+      bonus: null == bonus
+          ? _value.bonus
+          : bonus // ignore: cast_nullable_to_non_nullable
+              as int,
+      taxDebit: null == taxDebit
+          ? _value.taxDebit
+          : taxDebit // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPayment: null == totalPayment
+          ? _value.totalPayment
+          : totalPayment // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -108,20 +151,35 @@ class __$$EmployeeAttendenceImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
-  const _$EmployeeAttendenceImpl({this.status = '', required this.dateTime});
+  const _$EmployeeAttendenceImpl(
+      {this.status = EmployeeAttendenceStatus.present,
+      this.dateTime = '',
+      this.bonus = 0,
+      this.taxDebit = 0,
+      this.totalPayment = 0});
 
   factory _$EmployeeAttendenceImpl.fromJson(Map<String, dynamic> json) =>
       _$$EmployeeAttendenceImplFromJson(json);
 
   @override
   @JsonKey()
-  final String status;
+  final EmployeeAttendenceStatus status;
   @override
-  final DateTime dateTime;
+  @JsonKey()
+  final String dateTime;
+  @override
+  @JsonKey()
+  final int bonus;
+  @override
+  @JsonKey()
+  final int taxDebit;
+  @override
+  @JsonKey()
+  final int totalPayment;
 
   @override
   String toString() {
-    return 'EmployeeAttendence(status: $status, dateTime: $dateTime)';
+    return 'EmployeeAttendence(status: $status, dateTime: $dateTime, bonus: $bonus, taxDebit: $taxDebit, totalPayment: $totalPayment)';
   }
 
   @override
@@ -131,12 +189,18 @@ class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
             other is _$EmployeeAttendenceImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+                other.dateTime == dateTime) &&
+            (identical(other.bonus, bonus) || other.bonus == bonus) &&
+            (identical(other.taxDebit, taxDebit) ||
+                other.taxDebit == taxDebit) &&
+            (identical(other.totalPayment, totalPayment) ||
+                other.totalPayment == totalPayment));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, status, dateTime);
+  int get hashCode =>
+      Object.hash(runtimeType, status, dateTime, bonus, taxDebit, totalPayment);
 
   @JsonKey(ignore: true)
   @override
@@ -155,16 +219,25 @@ class _$EmployeeAttendenceImpl implements _EmployeeAttendence {
 
 abstract class _EmployeeAttendence implements EmployeeAttendence {
   const factory _EmployeeAttendence(
-      {final String status,
-      required final DateTime dateTime}) = _$EmployeeAttendenceImpl;
+      {final EmployeeAttendenceStatus status,
+      final String dateTime,
+      final int bonus,
+      final int taxDebit,
+      final int totalPayment}) = _$EmployeeAttendenceImpl;
 
   factory _EmployeeAttendence.fromJson(Map<String, dynamic> json) =
       _$EmployeeAttendenceImpl.fromJson;
 
   @override
-  String get status;
+  EmployeeAttendenceStatus get status;
   @override
-  DateTime get dateTime;
+  String get dateTime;
+  @override
+  int get bonus;
+  @override
+  int get taxDebit;
+  @override
+  int get totalPayment;
   @override
   @JsonKey(ignore: true)
   _$$EmployeeAttendenceImplCopyWith<_$EmployeeAttendenceImpl> get copyWith =>
