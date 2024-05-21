@@ -25,6 +25,34 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
   TextEditingController totalController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    basicPayController.text = widget.employee.pay.toString();
+    taxDebitController.addListener(_updateTotalPayment);
+    bonusController.addListener(_updateTotalPayment);
+    totalController.text = widget.employee.pay.toString();
+  }
+
+  @override
+  void dispose() {
+    taxDebitController.removeListener(_updateTotalPayment);
+    bonusController.removeListener(_updateTotalPayment);
+    basicPayController.dispose();
+    taxDebitController.dispose();
+    bonusController.dispose();
+    totalController.dispose();
+    super.dispose();
+  }
+
+  void _updateTotalPayment() {
+    final basicPay = int.tryParse(basicPayController.text) ?? 0;
+    final tax = int.tryParse(taxDebitController.text) ?? 0;
+    final bonus = int.tryParse(bonusController.text) ?? 0;
+    final total = basicPay - tax + bonus;
+    totalController.text = total.toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final selectEmployeeAttendence =
         ref.watch(addEmployeeProvider).employeeAttendenceStatus;
