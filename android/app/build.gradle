@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.employeemanager"
+        applicationId "com.employeemanager"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
@@ -58,6 +58,17 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    flavorDimensions "default"
+    productFlavors{
+        prod{
+            resValue "string", "app_name","EmployeeManager"
+            applicationIdSuffix ".prod"
+        }
+         dev{
+            resValue "string", "app_name","EmployeeManager-Dev"
+            applicationIdSuffix ".dev"
+        }
+    }
     }
 }
 

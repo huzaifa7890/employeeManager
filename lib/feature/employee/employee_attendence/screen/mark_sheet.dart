@@ -6,6 +6,7 @@ import 'package:employeemanager/models/employee.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -183,94 +184,175 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                 ),
               ),
               const SizedBox(height: 10),
-              AppTextField(
-                height: 65,
-                enabled: false,
-                hintText: "Basic Pay",
-                textAlign: TextAlign.end,
-                textController: basicPayController,
-                fillColor: AppColors.fieldGrey,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.fieldGrey,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please Check Basic Pay";
-                  }
-                  return null;
-                },
-                hintStyle: theme.textTheme.bodyLarge,
-                lines: 1,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Text(
+                      "Basic Pay",
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: AppTextField(
+                        height: 65,
+                        enabled: false,
+                        // hintText: "Basic Pay",
+                        textAlign: TextAlign.end,
+                        textController: basicPayController,
+                        fillColor: AppColors.fieldGrey,
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Check Basic Pay";
+                          }
+                          return null;
+                        },
+                        hintStyle: theme.textTheme.bodyLarge,
+                        lines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
-              AppTextField(
-                height: 65,
-                hintText: "Tax/Debit",
-                textAlign: TextAlign.end,
-                textController: taxDebitController,
-                fillColor: AppColors.fieldGrey,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.fieldGrey,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please Check Tax/Debit";
-                  }
-                  return null;
-                },
-                hintStyle: theme.textTheme.bodyLarge,
-                lines: 1,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Text(
+                      "Tax/Debit",
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: AppTextField(
+                        height: 65,
+                        // hintText: "Tax/Debit",
+                        textAlign: TextAlign.end,
+                        textController: taxDebitController,
+                        fillColor: AppColors.fieldGrey,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Check Tax/Debit";
+                          }
+                          return null;
+                        },
+                        hintStyle: theme.textTheme.bodyLarge,
+                        lines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
-              AppTextField(
-                height: 65,
-                hintText: "Bonus",
-                textAlign: TextAlign.end,
-                textController: bonusController,
-                fillColor: AppColors.fieldGrey,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.fieldGrey,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please Check Bonus";
-                  }
-                  return null;
-                },
-                hintStyle: theme.textTheme.bodyLarge,
-                lines: 1,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Text(
+                      "Bonus",
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: AppTextField(
+                        height: 65,
+                        // hintText: "Bonus",
+                        textAlign: TextAlign.end,
+                        textController: bonusController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        fillColor: AppColors.fieldGrey,
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Check Bonus";
+                          }
+                          return null;
+                        },
+                        hintStyle: theme.textTheme.bodyLarge,
+                        lines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
-              AppTextField(
-                height: 65,
-                hintText: "Total Payments",
-                textAlign: TextAlign.end,
-                textController: totalController,
-                fillColor: AppColors.fieldGrey,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.fieldGrey,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please Check Total Payments";
-                  }
-                  return null;
-                },
-                hintStyle: theme.textTheme.bodyLarge,
-                lines: 1,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Text(
+                      "Total Payments",
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: AppTextField(
+                        height: 65, enabled: false,
+                        // hintText: "Total Payments",
+                        textAlign: TextAlign.end,
+                        textController: totalController,
+                        fillColor: AppColors.fieldGrey,
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Check Total Payments";
+                          }
+                          return null;
+                        },
+                        hintStyle: theme.textTheme.bodyLarge,
+                        lines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
                   ref.read(addEmployeeProvider.notifier).updateAttendence(
