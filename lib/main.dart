@@ -1,3 +1,5 @@
+import 'package:employeemanager/core/provider/app_mode_provider.dart';
+import 'package:employeemanager/core/provider/shared_preference_provider.dart';
 import 'package:employeemanager/core/provider/theme_provider.dart';
 import 'package:employeemanager/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+    ref.read(sharedPrefsProvider).setBool('isDev', isDev);
     return MaterialApp.router(
       debugShowCheckedModeBanner: isDev ? true : false,
       title: 'Employee Manager',
