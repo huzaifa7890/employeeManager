@@ -65,6 +65,7 @@ class _EmployeeAttendenceScreenState
           ),
           Expanded(
             child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 itemCount: employeeList.length,
                 itemBuilder: (context, index) {
                   final employee = employeeList[index];
@@ -76,7 +77,8 @@ class _EmployeeAttendenceScreenState
                       }));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 8),
                       child: Container(
                         decoration: const BoxDecoration(
                           color: AppColors.fieldGrey,
