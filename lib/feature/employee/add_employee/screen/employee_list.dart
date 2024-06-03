@@ -34,13 +34,15 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
         ),
       ),
       body: ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           itemCount: employeeList.length,
           itemBuilder: (context, index) {
             final employee = employeeList[index];
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
                   color: AppColors.fieldGrey,
                 ),
                 child: Column(

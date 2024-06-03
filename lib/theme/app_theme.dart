@@ -31,10 +31,10 @@ class AppColorSchemes {
 
 class AppTheme {
   static final lightThemeCopy = ThemeData(
-      datePickerTheme: const DatePickerThemeData(
-        backgroundColor: AppColors.primary,
-        todayBackgroundColor: MaterialStatePropertyAll(AppColors.secondary),
-      ),
+      // datePickerTheme: const DatePickerThemeData(
+      //   backgroundColor: AppColors.primary,
+      //   todayBackgroundColor: MaterialStatePropertyAll(AppColors.secondary),
+      // ),
       colorScheme: AppColorSchemes.lightColorScheme,
       textSelectionTheme:
           const TextSelectionThemeData(cursorColor: AppColors.secondary),

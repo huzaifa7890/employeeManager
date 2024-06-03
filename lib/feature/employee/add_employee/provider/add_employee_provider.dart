@@ -14,6 +14,7 @@ import 'package:employeemanager/models/employee.dart';
 import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:employeemanager/response/firebase_response/firebase_response_model.dart';
 import 'package:employeemanager/response/response.dart';
+import 'package:intl/intl.dart';
 
 final addEmployeeProvider = NotifierProvider<AddEmployee, AddEmployeeState>(
   () => AddEmployee(firebaseReference: FirebaseReference()),
@@ -132,7 +133,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
         EmployeeAttendenceFirebaseRepository(firebaseReference);
 
     final employeeAttendence = EmployeeAttendence(
-      dateTime: DateTime.now().toIso8601String(),
+      dateTime: DateFormat('dd MMMM y').format(DateTime.now()),
       status: state.employeeAttendenceStatus!,
       bonus: bonus,
       taxDebit: taxDebit,
@@ -146,7 +147,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
       employeeAttendence: [
         ...state.employeeList[employeeIndex].employeeAttendence,
         EmployeeAttendence(
-          dateTime: DateTime.now().toIso8601String(),
+          dateTime: DateFormat('dd MMMM y').format(DateTime.now()),
           status: state.employeeAttendenceStatus!,
           bonus: bonus,
           taxDebit: taxDebit,

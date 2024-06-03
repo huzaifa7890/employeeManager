@@ -1,4 +1,3 @@
-import 'package:employeemanager/core/provider/app_mode_provider.dart';
 import 'package:employeemanager/core/provider/shared_preference_provider.dart';
 import 'package:employeemanager/core/provider/theme_provider.dart';
 import 'package:employeemanager/theme/app_theme.dart';
