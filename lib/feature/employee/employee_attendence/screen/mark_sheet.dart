@@ -53,10 +53,47 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
     totalController.text = total.toString();
   }
 
+  DateTime? selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.blackBlue, // header background color
+              onPrimary: Colors.white, // header text color
+              onSurface: AppColors.blue, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.red, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final selectEmployeeAttendence =
-        ref.watch(addEmployeeProvider).employeeAttendenceStatus;
+    final employeeList = ref.watch(addEmployeeProvider).employeeList.where((e) {
+      return e.id == widget.employee.id;
+    }).toList();
+    final selectEmployeeAttendence = employeeList.where((e) {
+      return e.employeeAttendence == widget.employee.employeeAttendence;
+    }).toList();
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -145,18 +182,21 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                     "Date",
                     style: theme.textTheme.bodyLarge,
                   ),
-                  Container(
-                    width: 200,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppColors.purple,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        DateFormat('dd MMMM y').format(DateTime.now()),
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(color: AppColors.primary),
+                  GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: Container(
+                      width: 200,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppColors.purple,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          DateFormat('dd MMMM y').format(DateTime.now()),
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(color: AppColors.primary),
+                        ),
                       ),
                     ),
                   ),
