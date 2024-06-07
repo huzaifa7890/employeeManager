@@ -3,7 +3,6 @@ import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/screen/mark_sheet.dart';
 import 'package:employeemanager/models/employee.dart';
-import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

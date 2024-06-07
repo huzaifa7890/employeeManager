@@ -3,6 +3,7 @@ import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/widgets/attendence_widget.dart';
 import 'package:employeemanager/models/employee.dart';
+import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,9 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
   TextEditingController bonusController = TextEditingController();
   TextEditingController totalController = TextEditingController();
 
+  DateTime? selectedDate;
+  EmployeeAttendenceStatus? selectEmployeeAttendence;
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +36,8 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
     taxDebitController.addListener(_updateTotalPayment);
     bonusController.addListener(_updateTotalPayment);
     totalController.text = widget.employee.pay.toString();
+
+    _initializeAttendanceStatus(DateTime.now());
   }
 
   @override
@@ -52,8 +58,6 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
     final total = basicPay - tax + bonus;
     totalController.text = total.toString();
   }
-
-  DateTime? selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -82,19 +86,30 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+        _initializeAttendanceStatus(picked);
       });
+    }
+  }
+
+  void _initializeAttendanceStatus(DateTime date) {
+    final attendances = widget.employee.employeeAttendence;
+    final selectedDateFormatted = DateFormat('dd MMMM y').format(date);
+
+    final matchingAttendances = attendances.where(
+      (attendance) => attendance.dateTime == selectedDateFormatted,
+    );
+
+    if (matchingAttendances.isNotEmpty) {
+      selectEmployeeAttendence = matchingAttendances.first.status;
+    } else {
+      selectEmployeeAttendence = null; // No attendance found for the given date
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final employeeList = ref.watch(addEmployeeProvider).employeeList.where((e) {
-      return e.id == widget.employee.id;
-    }).toList();
-    final selectEmployeeAttendence = employeeList.where((e) {
-      return e.employeeAttendence == widget.employee.employeeAttendence;
-    }).toList();
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Mark Attendence"),
@@ -193,7 +208,9 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                       ),
                       child: Center(
                         child: Text(
-                          DateFormat('dd MMMM y').format(DateTime.now()),
+                          selectedDate != null
+                              ? DateFormat('dd MMMM y').format(selectedDate!)
+                              : DateFormat('dd MMMM y').format(DateTime.now()),
                           style: theme.textTheme.bodyLarge!
                               .copyWith(color: AppColors.primary),
                         ),
@@ -214,6 +231,9 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                         text: getEmployeeAttendenceStatus(item),
                         isSelected: selectEmployeeAttendence == item,
                         onPressed: () {
+                          setState(() {
+                            selectEmployeeAttendence = item;
+                          });
                           ref
                               .read(addEmployeeProvider.notifier)
                               .setAttendence(item);
@@ -368,7 +388,8 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: AppTextField(
-                        height: 65, enabled: false,
+                        height: 65,
+                        enabled: false,
                         // hintText: "Total Payments",
                         textAlign: TextAlign.end,
                         textController: totalController,
