@@ -1,9 +1,9 @@
 import 'package:employeemanager/constant/data_constant.dart';
+import 'package:employeemanager/constant/extension_constants.dart';
 import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/widgets/attendence_widget.dart';
 import 'package:employeemanager/models/employee.dart';
-import 'package:employeemanager/models/employee_attendence.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
@@ -101,8 +101,12 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
 
     if (matchingAttendances.isNotEmpty) {
       selectEmployeeAttendence = matchingAttendances.first.status;
+      bonusController.text = matchingAttendances.first.bonus.toString();
+      taxDebitController.text = matchingAttendances.first.taxDebit.toString();
     } else {
       selectEmployeeAttendence = null; // No attendance found for the given date
+      bonusController.text = '0';
+      taxDebitController.text = '0';
     }
   }
 
@@ -416,12 +420,19 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(addEmployeeProvider.notifier).updateAttendence(
-                        widget.employee.id,
-                        int.parse(taxDebitController.text),
-                        int.parse(bonusController.text),
-                        int.parse(totalController.text),
-                      );
+                  final response =
+                      ref.read(addEmployeeProvider.notifier).updateAttendence(
+                            widget.employee.id,
+                            int.parse(taxDebitController.text),
+                            int.parse(bonusController.text),
+                            int.parse(totalController.text),
+                          );
+                  response.then((e) {
+                    if (e.errorMessage.isEmpty) {
+                      return context.showSuccessSnackBar(
+                          "Attendence updated succussfully");
+                    }
+                  });
                 },
                 child: const Text('Update'),
               ),

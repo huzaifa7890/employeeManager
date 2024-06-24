@@ -127,7 +127,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
     state = state.copyWith(employeeAttendenceStatus: employeeAttendence);
   }
 
-  Future<void> updateAttendence(
+  Future<Response> updateAttendence(
       String employeeId, int taxDebit, int bonus, int totalPayment) async {
     final employeeAttendenceRepo =
         EmployeeAttendenceFirebaseRepository(firebaseReference);
@@ -157,9 +157,10 @@ class AddEmployee extends Notifier<AddEmployeeState> {
     );
     final List<Employee> updatedEmployees = [...state.employeeList];
     updatedEmployees[employeeIndex] = updatedEmployee;
-    await employeeAttendenceRepo.updateAttendenceEmployee(
+    final response = await employeeAttendenceRepo.updateAttendenceEmployee(
         employeeId, employeeAttendence);
     state = state.copyWith(employeeList: updatedEmployees);
+    return Response(isSuccess: true, errorMessage: response.errorMessage);
   }
 
   @override

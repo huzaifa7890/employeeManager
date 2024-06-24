@@ -62,7 +62,8 @@ class _EmployeeAttendenceScreenState
 
   bool _isEmployeePresentOnDate(Employee employee, DateTime date) {
     return employee.employeeAttendence.any((attendance) {
-      return DateFormat('dd MMMM y').parse(attendance.dateTime) == date;
+      final selectedDateFormatted = DateFormat('dd MMMM y').format(date);
+      return attendance.dateTime == selectedDateFormatted;
     });
   }
 
