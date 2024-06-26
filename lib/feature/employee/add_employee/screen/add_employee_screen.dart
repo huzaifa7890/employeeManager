@@ -477,7 +477,7 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
                                 fullName: fullNameController.text,
                                 designation: designationController.text,
                                 mobileNo: int.parse(mobileNoController.text),
-                                pay: int.parse(mobileNoController.text),
+                                pay: int.parse(payController.text),
                                 address: addressController.text,
                                 selectedImage: pickedImage,
                               );
