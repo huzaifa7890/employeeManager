@@ -191,13 +191,13 @@ class _EmployeeAttendenceScreenState
                               ),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           if (hasStatus)
                             Container(
-                              margin: EdgeInsets.only(right: 16),
+                              margin: const EdgeInsets.only(right: 16),
                               width: 20,
                               height: 20,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.green,
                               ),

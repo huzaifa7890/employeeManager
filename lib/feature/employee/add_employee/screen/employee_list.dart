@@ -51,26 +51,38 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
                       children: [
                         Column(
                           children: [
-                            CircleAvatar(
-                              maxRadius: 60,
-                              minRadius: 60,
-                              backgroundColor: AppColors.fieldGrey,
-                              child: employee.employeePic!.isNotEmpty
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(51),
-                                      child: Image.network(
-                                        employee.employeePic!,
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.cover,
+                            Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60),
+                                border: Border.all(
+                                  color: Colors.blue,
+                                  width:
+                                      4, // Adjust this value to your preference
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                maxRadius: 60,
+                                minRadius: 60,
+                                backgroundColor: AppColors.fieldGrey,
+                                child: employee.employeePic!.isNotEmpty
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(51),
+                                        child: Image.network(
+                                          employee.employeePic!,
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : Image.asset(
+                                        AssetImages.personIcon,
+                                        height: 55,
+                                        width: 55,
+                                        fit: BoxFit.contain,
                                       ),
-                                    )
-                                  : Image.asset(
-                                      AssetImages.personIcon,
-                                      height: 55,
-                                      width: 55,
-                                      fit: BoxFit.contain,
-                                    ),
+                              ),
                             ),
                           ],
                         ),
