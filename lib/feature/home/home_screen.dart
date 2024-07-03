@@ -2,8 +2,9 @@ import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/drawer/screens/drawer.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/add_employee_screen.dart';
-import 'package:employeemanager/feature/employee/add_employee/screen/employee_list.dart';
+import 'package:employeemanager/feature/employee/employee_list/screen/employee_list.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/screen/employee_attendence_screen.dart';
+import 'package:employeemanager/feature/employee/employee_salary_slip/employee_salary_slip_screen.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:employeemanager/theme/theme_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -130,10 +131,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context)
-                  //     .push(MaterialPageRoute(builder: (context) {
-                  //   return const EmployeeList();
-                  // }));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const EmployeeSalarySlipScreen();
+                  }));
                 },
                 child: Container(
                   height: 50,
@@ -143,7 +144,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       color: AppColors.onboardingButton),
                   child: Center(
                       child: Text(
-                    "ListView",
+                    "Salary Slip",
                     style: theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.primary),
                   )),
