@@ -1,6 +1,10 @@
 class AssetImages {
   static const String appLogo = 'assets/images/app_logo.png';
   static const String personIcon = 'assets/icons/person.png';
+  static const String addEmployeeImage = 'assets/images/add.png';
+  static const String markEmployeeImage = 'assets/images/markAttendence.png';
+  static const String employeeListImage = 'assets/images/list.png';
+  static const String salaryslip = 'assets/images/salaryslip.png';
 }
 
 class AppRoutes {
