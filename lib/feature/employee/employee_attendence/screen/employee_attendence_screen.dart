@@ -74,14 +74,19 @@ class _EmployeeAttendenceScreenState
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondary,
+        iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
           "Employee List",
-          style: theme.textTheme.bodyLarge,
+          style: theme.textTheme.titleMedium!.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: Column(
         children: [
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -109,6 +114,7 @@ class _EmployeeAttendenceScreenState
               ),
             ],
           ),
+          const SizedBox(height: 15),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 12),

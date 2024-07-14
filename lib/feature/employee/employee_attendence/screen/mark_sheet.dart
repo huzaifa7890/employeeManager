@@ -116,11 +116,19 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mark Attendence"),
+        backgroundColor: AppColors.secondary,
+        iconTheme: const IconThemeData(color: AppColors.primary),
+        title: Text(
+          "Mark Attendence",
+          style: theme.textTheme.titleMedium!.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
           child: Column(
             children: [
               Container(

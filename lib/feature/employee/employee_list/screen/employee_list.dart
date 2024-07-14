@@ -27,10 +27,14 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
     final theme = context.theme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondary,
+        iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
           "Employee List",
-          style: theme.textTheme.bodyLarge,
+          style: theme.textTheme.titleMedium!.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: ListView.builder(
@@ -39,7 +43,8 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
           itemBuilder: (context, index) {
             final employee = employeeList[index];
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),

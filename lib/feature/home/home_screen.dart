@@ -44,7 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
           "Employee Manager",
-          style: theme.textTheme.bodyLarge!.copyWith(
+          style: theme.textTheme.titleLarge!.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
           ),
@@ -66,14 +66,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }));
                 },
                 child: Container(
-                  height: 50,
+                  height: 70,
                   width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.onboardingButton),
                   child: Center(
                       child: Text(
-                    "Add",
+                    "Add Employee",
                     style: theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.primary),
                   )),
@@ -88,7 +88,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }));
                 },
                 child: Container(
-                  height: 50,
+                  height: 70,
                   width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -115,7 +115,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }));
                 },
                 child: Container(
-                  height: 50,
+                  height: 70,
                   width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -137,7 +137,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }));
                 },
                 child: Container(
-                  height: 50,
+                  height: 70,
                   width: 120,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),

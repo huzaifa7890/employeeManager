@@ -39,7 +39,15 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
     final pickedImage = ref.watch(imagePickerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Employee'),
+        backgroundColor: AppColors.secondary,
+        iconTheme: const IconThemeData(color: AppColors.primary),
+        title: Text(
+          'Add Employee',
+          style: theme.textTheme.titleMedium!.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -315,11 +323,11 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return "Please Check CNIC Number";
+                                return "Please Check NIC / Employee";
                               }
                               return null;
                             },
-                            hintText: 'CNIC',
+                            hintText: 'NIC / Employee ID',
                             hintStyle: theme.textTheme.bodyMedium!
                                 .copyWith(color: AppColors.fieldTextcolor),
                             lines: 1,
@@ -496,6 +504,8 @@ class _AddEmployeeScreenState extends ConsumerState<AddEmployeeScreen> {
                                   }
                                 else
                                   {
+                                    context
+                                        .showSuccessSnackBar("Employee Added"),
                                     context.pop(),
                                   }
                               });
