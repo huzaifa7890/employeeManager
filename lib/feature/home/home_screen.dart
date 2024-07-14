@@ -60,23 +60,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return const AddEmployeeScreen();
-                  }));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddEmployeeScreen(),
+                    ),
+                  );
                 },
                 child: Container(
                   height: 70,
                   width: 120,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColors.onboardingButton),
-                  child: Center(
-                      child: Text(
-                    "Add Employee",
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: AppColors.primary),
-                  )),
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColors.onboardingButton,
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Text placed inside the container
+                      Center(
+                        child: Text(
+                          "Add Employee",
+                          style: theme.textTheme.bodyLarge!.copyWith(
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                      // Positioned icon with part inside and part outside the container
+                      const Positioned(
+                        left:
+                            -19, // Adjust to push the icon outside the container
+                        child: Icon(
+                          Icons.add,
+                          color: AppColors.primary,
+                          size: 40, // Adjust size as needed
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
