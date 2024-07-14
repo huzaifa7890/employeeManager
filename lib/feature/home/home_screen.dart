@@ -76,7 +76,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      // Text placed inside the container
                       Center(
                         child: Text(
                           "Add Employee",
@@ -85,14 +84,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                         ),
                       ),
-                      // Positioned icon with part inside and part outside the container
                       const Positioned(
-                        left:
-                            -19, // Adjust to push the icon outside the container
+                        left: -19,
                         child: Icon(
                           Icons.add,
                           color: AppColors.primary,
-                          size: 40, // Adjust size as needed
+                          size: 40,
                         ),
                       ),
                     ],
