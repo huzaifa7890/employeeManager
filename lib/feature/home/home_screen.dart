@@ -10,7 +10,6 @@ import 'package:employeemanager/theme/theme_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -70,7 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       );
                     },
                     child: Container(
-                      height: 60,
+                      height: 70,
                       width: 160,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -87,7 +86,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   Positioned(
-                    left: -25, // Adjust this value to control the overlap
+                    left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
                       height: 40,
@@ -119,7 +118,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       }));
                     },
                     child: Container(
-                      height: 60,
+                      height: 70,
                       width: 160,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
@@ -155,7 +154,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 40),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -170,21 +170,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       }));
                     },
                     child: Container(
-                      height: 60,
+                      height: 70,
                       width: 160,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: AppColors.appButtoncolor),
                       child: Center(
-                          child: Text(
-                        "Mark Attendance",
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(color: AppColors.primary),
-                      )),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Mark",
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: AppColors.primary),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "Attendance",
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: AppColors.primary),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   Positioned(
-                    left: -25, // Adjust this value to control the overlap
+                    left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
                       height: 40,
@@ -214,7 +227,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       }));
                     },
                     child: Container(
-                      height: 60,
+                      height: 70,
                       width: 160,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
@@ -225,6 +238,115 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         style: theme.textTheme.bodyLarge!
                             .copyWith(color: AppColors.primary),
                       )),
+                    ),
+                  ),
+                  Positioned(
+                    left: -20, // Adjust this value to control the overlap
+                    top: 12, // Center the icon vertically
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2),
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Image.asset(
+                        AssetImages.salaryslip,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const EmployeeAttendenceScreen();
+                      }));
+                    },
+                    child: Container(
+                      height: 70,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: AppColors.appButtoncolor,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Multiple",
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: AppColors.primary),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "Attendance",
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: AppColors.primary),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: -20, // Adjust this value to control the overlap
+                    top: 12, // Center the icon vertically
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2),
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Image.asset(
+                        AssetImages.multipleAttendence,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 25),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const EmployeeSalarySlipScreen();
+                      }));
+                    },
+                    child: Container(
+                      height: 70,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: AppColors.appButtoncolor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Salary Slip",
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(color: AppColors.primary),
+                        ),
+                      ),
                     ),
                   ),
                   Positioned(

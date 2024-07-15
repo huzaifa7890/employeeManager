@@ -127,40 +127,71 @@ class AddEmployee extends Notifier<AddEmployeeState> {
     state = state.copyWith(employeeAttendenceStatus: employeeAttendence);
   }
 
-  Future<Response> updateAttendence(
-      String employeeId, int taxDebit, int bonus, int totalPayment) async {
+  Future<Response> updateAttendence(String employeeId, int taxDebit, int bonus,
+      int totalPayment, DateTime dateTime) async {
     final employeeAttendenceRepo =
         EmployeeAttendenceFirebaseRepository(firebaseReference);
 
-    final employeeAttendence = EmployeeAttendence(
-      dateTime: DateFormat('dd MMMM y').format(DateTime.now()),
-      status: state.employeeAttendenceStatus!,
-      bonus: bonus,
-      taxDebit: taxDebit,
-      totalPayment: totalPayment,
-    );
-
+    final dateFormatted = DateFormat('dd MMMM y').format(dateTime);
     final employeeIndex = state.employeeList.indexWhere(
       (element) => element.id == employeeId,
     );
-    final updatedEmployee = state.employeeList[employeeIndex].copyWith(
-      employeeAttendence: [
-        ...state.employeeList[employeeIndex].employeeAttendence,
-        EmployeeAttendence(
-          dateTime: DateFormat('dd MMMM y').format(DateTime.now()),
-          status: state.employeeAttendenceStatus!,
-          bonus: bonus,
-          taxDebit: taxDebit,
-          totalPayment: totalPayment,
-        ),
-      ],
-    );
-    final List<Employee> updatedEmployees = [...state.employeeList];
-    updatedEmployees[employeeIndex] = updatedEmployee;
-    final response = await employeeAttendenceRepo.updateAttendenceEmployee(
-        employeeId, employeeAttendence);
-    state = state.copyWith(employeeList: updatedEmployees);
-    return Response(isSuccess: true, errorMessage: response.errorMessage);
+
+    final existingAttendenceIndex = state
+        .employeeList[employeeIndex].employeeAttendence
+        .indexWhere((att) => att.dateTime == dateFormatted);
+
+    if (existingAttendenceIndex != -1) {
+      // Update existing attendance
+      final updatedAttendance = state.employeeList[employeeIndex]
+          .employeeAttendence[existingAttendenceIndex]
+          .copyWith(
+        status: state.employeeAttendenceStatus!,
+        bonus: bonus,
+        taxDebit: taxDebit,
+        totalPayment: totalPayment,
+      );
+
+      final updatedAttendences = List<EmployeeAttendence>.from(
+          state.employeeList[employeeIndex].employeeAttendence);
+      updatedAttendences[existingAttendenceIndex] = updatedAttendance;
+
+      final updatedEmployee = state.employeeList[employeeIndex].copyWith(
+        employeeAttendence: updatedAttendences,
+      );
+
+      final List<Employee> updatedEmployees = [...state.employeeList];
+      updatedEmployees[employeeIndex] = updatedEmployee;
+
+      state = state.copyWith(employeeList: updatedEmployees);
+
+      final response = await employeeAttendenceRepo.updateAttendenceEmployee(
+          employeeId, updatedAttendance);
+
+      return Response(isSuccess: true, errorMessage: response.errorMessage);
+    } else {
+      // Create new attendance if not exists
+      final employeeAttendence = EmployeeAttendence(
+        dateTime: dateFormatted,
+        status: state.employeeAttendenceStatus!,
+        bonus: bonus,
+        taxDebit: taxDebit,
+        totalPayment: totalPayment,
+      );
+
+      final updatedEmployee = state.employeeList[employeeIndex].copyWith(
+        employeeAttendence: [
+          ...state.employeeList[employeeIndex].employeeAttendence,
+          employeeAttendence,
+        ],
+      );
+      final List<Employee> updatedEmployees = [...state.employeeList];
+      updatedEmployees[employeeIndex] = updatedEmployee;
+      final response = await employeeAttendenceRepo.updateAttendenceEmployee(
+          employeeId, employeeAttendence);
+      state = state.copyWith(employeeList: updatedEmployees);
+      return Response(isSuccess: true, errorMessage: response.errorMessage);
+    }
   }
 
   @override

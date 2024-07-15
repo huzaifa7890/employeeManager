@@ -5,6 +5,7 @@ class AssetImages {
   static const String markEmployeeImage = 'assets/images/markAttendence.png';
   static const String employeeListImage = 'assets/images/list.png';
   static const String salaryslip = 'assets/images/salaryslip.png';
+  static const String multipleAttendence = 'assets/images/multiple.png';
 }
 
 class AppRoutes {

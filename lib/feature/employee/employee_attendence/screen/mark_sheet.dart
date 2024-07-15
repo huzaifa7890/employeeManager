@@ -108,6 +108,9 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
       bonusController.text = '0';
       taxDebitController.text = '0';
     }
+    setState(() {
+      selectedDate = date; // Set the selected date
+    });
   }
 
   @override
@@ -434,6 +437,7 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                             int.parse(taxDebitController.text),
                             int.parse(bonusController.text),
                             int.parse(totalController.text),
+                            selectedDate ?? DateTime.now(),
                           );
                   response.then((e) {
                     if (e.errorMessage.isEmpty) {
