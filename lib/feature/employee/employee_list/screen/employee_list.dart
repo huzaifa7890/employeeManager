@@ -43,11 +43,12 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
           itemBuilder: (context, index) {
             final employee = employeeList[index];
             return Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
               child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   color: AppColors.fieldGrey,
                 ),
                 child: Column(
@@ -96,7 +97,7 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              employee.name!,
+                              employee.name ?? '',
                               style: theme.textTheme.bodyLarge,
                             ),
                             Text(

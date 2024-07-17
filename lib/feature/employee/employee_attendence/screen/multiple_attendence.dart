@@ -1,7 +1,6 @@
 import 'package:employeemanager/constant/extension_constants.dart';
 import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/employee/add_employee/provider/add_employee_provider.dart';
-import 'package:employeemanager/feature/employee/employee_attendence/screen/mark_sheet.dart';
 import 'package:employeemanager/models/employee.dart';
 import 'package:employeemanager/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ class MultipleAttendence extends ConsumerStatefulWidget {
 
 class _EmployeeAttendenceScreenState extends ConsumerState<MultipleAttendence> {
   DateTime? selectedDate;
+  List<Employee> selectedEmployees = [];
 
   @override
   void initState() {
@@ -66,6 +66,33 @@ class _EmployeeAttendenceScreenState extends ConsumerState<MultipleAttendence> {
     });
   }
 
+  void _toggleEmployeeSelection(Employee employee) {
+    setState(() {
+      if (selectedEmployees.contains(employee)) {
+        selectedEmployees.remove(employee);
+      } else {
+        selectedEmployees.add(employee);
+      }
+    });
+  }
+
+  void _markAttendanceForSelectedEmployees() {
+    for (var employee in selectedEmployees) {
+      ref.read(addEmployeeProvider.notifier).updateAttendence(
+            employee.id,
+            0, // Tax/Debit (you can change as needed)
+            0, // Bonus (you can change as needed)
+            employee.pay, // Total Payment (you can change as needed)
+            selectedDate ?? DateTime.now(),
+            EmployeeAttendenceStatus.present,
+          );
+    }
+    setState(() {
+      selectedEmployees.clear(); // Clear selection after marking attendance
+    });
+    context.showSuccessSnackBar("Attendance marked for selected employees.");
+  }
+
   @override
   Widget build(BuildContext context) {
     final employeeList = ref.watch(addEmployeeProvider).employeeList;
@@ -76,12 +103,19 @@ class _EmployeeAttendenceScreenState extends ConsumerState<MultipleAttendence> {
         backgroundColor: AppColors.secondary,
         iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
-          "Employee List",
+          "Employee Multiple Attendance",
           style: theme.textTheme.titleMedium!.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
           ),
         ),
+        actions: [
+          if (selectedEmployees.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.check),
+              onPressed: _markAttendanceForSelectedEmployees,
+            ),
+        ],
       ),
       body: Column(
         children: [
@@ -122,21 +156,21 @@ class _EmployeeAttendenceScreenState extends ConsumerState<MultipleAttendence> {
                 final employee = employeeList[index];
                 final hasStatus =
                     _isEmployeePresentOnDate(employee, selectedDate!);
+                final isSelected = selectedEmployees.contains(employee);
 
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return MarkAttendenceSheet(employee: employee);
-                    }));
-                  },
+                  onTap: () => _toggleEmployeeSelection(employee),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 8),
                     child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: AppColors.fieldGrey,
+                        borderRadius: BorderRadius.circular(10),
+                        color: isSelected
+                            ? Colors.blueAccent
+                            : AppColors.fieldGrey,
                       ),
                       child: Row(
                         children: [
@@ -183,7 +217,7 @@ class _EmployeeAttendenceScreenState extends ConsumerState<MultipleAttendence> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                employee.name!,
+                                employee.name ?? '',
                                 style: theme.textTheme.bodyLarge,
                               ),
                               Text(

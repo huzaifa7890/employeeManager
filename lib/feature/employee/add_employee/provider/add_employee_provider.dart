@@ -56,6 +56,7 @@ class AddEmployeeState {
         employeeList: [],
         isLoading: false,
         errorMessage: '',
+        employeeAttendenceStatus: EmployeeAttendenceStatus.present,
       );
 }
 
@@ -127,8 +128,13 @@ class AddEmployee extends Notifier<AddEmployeeState> {
     state = state.copyWith(employeeAttendenceStatus: employeeAttendence);
   }
 
-  Future<Response> updateAttendence(String employeeId, int taxDebit, int bonus,
-      int totalPayment, DateTime dateTime) async {
+  Future<Response> updateAttendence(
+      String employeeId,
+      int taxDebit,
+      int bonus,
+      int totalPayment,
+      DateTime dateTime,
+      EmployeeAttendenceStatus status) async {
     final employeeAttendenceRepo =
         EmployeeAttendenceFirebaseRepository(firebaseReference);
 
@@ -146,7 +152,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
       final updatedAttendance = state.employeeList[employeeIndex]
           .employeeAttendence[existingAttendenceIndex]
           .copyWith(
-        status: state.employeeAttendenceStatus!,
+        status: status,
         bonus: bonus,
         taxDebit: taxDebit,
         totalPayment: totalPayment,
@@ -173,7 +179,7 @@ class AddEmployee extends Notifier<AddEmployeeState> {
       // Create new attendance if not exists
       final employeeAttendence = EmployeeAttendence(
         dateTime: dateFormatted,
-        status: state.employeeAttendenceStatus!,
+        status: status,
         bonus: bonus,
         taxDebit: taxDebit,
         totalPayment: totalPayment,

@@ -110,9 +110,10 @@ class _EmployeeAttendenceSheetState
           child: Column(
             children: [
               Container(
-                height: 90,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   color: AppColors.fieldGrey,
                 ),
                 child: Column(
@@ -160,7 +161,7 @@ class _EmployeeAttendenceSheetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.employee.name!,
+                              widget.employee.name ?? '',
                               style: theme.textTheme.bodyLarge,
                             ),
                             Text(
@@ -216,11 +217,14 @@ class _EmployeeAttendenceSheetState
                       getEmployeeStatusOnDate(widget.employee, attendanceDate);
 
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8),
                     child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 8),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1),
                         borderRadius: BorderRadius.circular(10),
+                        color: AppColors.fieldGrey,
                       ),
                       child: ListTile(
                         title: Text(

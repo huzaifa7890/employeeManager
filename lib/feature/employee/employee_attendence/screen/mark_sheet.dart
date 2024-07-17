@@ -115,6 +115,7 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final status = ref.watch(addEmployeeProvider).employeeAttendenceStatus;
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -135,9 +136,10 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
           child: Column(
             children: [
               Container(
-                height: 90,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   color: AppColors.fieldGrey,
                 ),
                 child: Column(
@@ -438,6 +440,7 @@ class _MarkAttendenceSheetState extends ConsumerState<MarkAttendenceSheet> {
                             int.parse(bonusController.text),
                             int.parse(totalController.text),
                             selectedDate ?? DateTime.now(),
+                            status ?? EmployeeAttendenceStatus.present,
                           );
                   response.then((e) {
                     if (e.errorMessage.isEmpty) {

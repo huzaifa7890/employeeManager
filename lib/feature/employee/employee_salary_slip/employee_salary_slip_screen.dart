@@ -35,7 +35,7 @@ class _EmployeeSalarySlipScreenState
         backgroundColor: AppColors.secondary,
         iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
-          "Employee List",
+          "Employee Salary Slip",
           style: theme.textTheme.titleMedium!.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
@@ -43,7 +43,7 @@ class _EmployeeSalarySlipScreenState
         ),
       ),
       body: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           itemCount: employeeList.length,
           itemBuilder: (context, index) {
             final employee = employeeList[index];
@@ -57,8 +57,10 @@ class _EmployeeSalarySlipScreenState
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
                 child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                     color: AppColors.fieldGrey,
                   ),
                   child: Column(

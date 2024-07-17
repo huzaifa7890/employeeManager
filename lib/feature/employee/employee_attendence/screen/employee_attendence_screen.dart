@@ -77,7 +77,7 @@ class _EmployeeAttendenceScreenState
         backgroundColor: AppColors.secondary,
         iconTheme: const IconThemeData(color: AppColors.primary),
         title: Text(
-          "Employee List",
+          "Employee Attendance",
           style: theme.textTheme.titleMedium!.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
@@ -135,8 +135,10 @@ class _EmployeeAttendenceScreenState
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 8),
                     child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                         color: AppColors.fieldGrey,
                       ),
                       child: Row(
@@ -184,7 +186,7 @@ class _EmployeeAttendenceScreenState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                employee.name!,
+                                employee.name ?? '',
                                 style: theme.textTheme.bodyLarge,
                               ),
                               Text(

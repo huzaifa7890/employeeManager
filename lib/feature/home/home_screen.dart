@@ -2,6 +2,7 @@ import 'package:employeemanager/constant/string_constant.dart';
 import 'package:employeemanager/feature/auth/providers/auth_provider.dart';
 import 'package:employeemanager/feature/drawer/screens/drawer.dart';
 import 'package:employeemanager/feature/employee/add_employee/screen/add_employee_screen.dart';
+import 'package:employeemanager/feature/employee/employee_attendence/screen/multiple_attendence.dart';
 import 'package:employeemanager/feature/employee/employee_list/screen/employee_list.dart';
 import 'package:employeemanager/feature/employee/employee_attendence/screen/employee_attendence_screen.dart';
 import 'package:employeemanager/feature/employee/employee_salary_slip/employee_salary_slip_screen.dart';
@@ -272,7 +273,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     onTap: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return const EmployeeAttendenceScreen();
+                        return const MultipleAttendence();
                       }));
                     },
                     child: Container(
