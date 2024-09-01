@@ -100,16 +100,28 @@ class AddEmployee extends Notifier<AddEmployeeState> {
 
     final addProperty = [...state.employeeList, newEmployee];
     state = state.copyWith(employeeList: addProperty);
-    NavigationService.navigatorKey.currentState?.pop();
     ref.read(employeeProvider.notifier).state = newEmployee;
+    await saveEmployee(newEmployee);
+    NavigationService.navigatorKey.currentState?.pop();
     return const Response(isSuccess: true, errorMessage: '');
   }
 
-  Future<Response> saveEmployee() async {
+  Future<Response> saveEmployee(employee) async {
     final employeeRepo = EmployeeFirebaseRepository(firebaseReference);
-    final employee = ref.read(employeeProvider);
-    final response = await employeeRepo.saveEmployee(employee!);
+    final response = await employeeRepo.saveEmployee(employee);
     return Response(isSuccess: true, errorMessage: response.errorMessage);
+  }
+
+  Future<Response> deleteEmployee(String employeeId) async {
+    final employeeRepo = EmployeeFirebaseRepository(firebaseReference);
+    final employeeList = [...state.employeeList];
+    final employeeIndex = employeeList.indexWhere((e) {
+      return e.id == employeeId;
+    });
+    employeeList.removeAt(employeeIndex);
+    state = state.copyWith(employeeList: employeeList);
+    await employeeRepo.deleteEmployee(employeeId);
+    return const Response(isSuccess: true, errorMessage: '');
   }
 
   Future<FirebaseResponse<List<Employee>>> fetchAllEmployee() async {

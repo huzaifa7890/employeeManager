@@ -16,9 +16,9 @@ class EmployeeFirebaseRepository {
     }
   }
 
-  Future<void> deleteEmployee(Employee employee) async {
+  Future<void> deleteEmployee(String employeeid) async {
     try {
-      await firebaseReference.employee.doc(employee.id).delete();
+      await firebaseReference.employee.doc(employeeid).delete();
     } catch (e) {
       print(e);
     }

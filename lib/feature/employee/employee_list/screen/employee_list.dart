@@ -76,7 +76,8 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
                                     ? ClipRRect(
                                         borderRadius: BorderRadius.circular(51),
                                         child: Image.network(
-                                          employee.employeePic!,
+                                          employee.employeePic ??
+                                              'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_640.png',
                                           height: 100,
                                           width: 100,
                                           fit: BoxFit.cover,
@@ -93,25 +94,35 @@ class _EmployeeListState extends ConsumerState<EmployeeList> {
                           ],
                         ),
                         const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              employee.name ?? '',
-                              style: theme.textTheme.bodyLarge,
-                            ),
-                            Text(
-                              (employee.designation).toString(),
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                            Text(
-                              (employee.cnicId).toString(),
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                employee.name ?? '',
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                              Text(
+                                (employee.designation).toString(),
+                                style: theme.textTheme.bodyMedium,
+                              ),
+                              Text(
+                                (employee.cnicId).toString(),
+                                style: theme.textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            ref
+                                .read(addEmployeeProvider.notifier)
+                                .deleteEmployee(employee.id);
+                          },
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
