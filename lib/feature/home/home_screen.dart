@@ -87,11 +87,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   Positioned(
-                    left: -20, // Adjust this value to control the overlap
+                    left: -22, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
@@ -136,8 +136,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
@@ -201,8 +201,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
@@ -245,8 +245,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
@@ -308,8 +308,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
@@ -354,8 +354,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     left: -20, // Adjust this value to control the overlap
                     top: 12, // Center the icon vertically
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         color: AppColors.primary,
